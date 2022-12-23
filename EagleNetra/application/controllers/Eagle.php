@@ -37,7 +37,7 @@ class Eagle extends RestController{
     }
 
     private function initializeEagleModel(){
-        $this->load->model('Eagle_model');
+        $this->load->model(model_eagle);
     }
     
     private function newotp(){
@@ -80,7 +80,7 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-        $number = $this->input->post('phoneNumber');
+        $number = $this->input->post(param_phone_number);
         if(!empty($number) && strlen($number) == 10 ){
             $isregistered = $this->Eagle_model->registered($number);
             if(!$isregistered){
@@ -89,7 +89,7 @@ class Eagle extends RestController{
                 $this->Eagle_model->addNumOtp($number, $otp, $uid);
             }
             $otp = $this->Eagle_model->getOtp($number);
-            $otp = $otp[0]['otp'];
+            $otp = $otp[0][key_otp];
             $message = $isregistered ? $this->lang_message(text_user_already_exist) : $this->lang_message(text_new_user);
             $response = [true , $message , $otp];
             return $this->final_response($resp,$response);
@@ -108,8 +108,8 @@ class Eagle extends RestController{
             ];
             return $data_final;
         };
-        $number = $this->input->get('phoneNumber');
-        $otp = $this->input->get('otp');
+        $number = $this->input->get(query_param_phone_number);
+        $otp = $this->input->get(query_param_otp);
 
         $this->initializeEagleModel();
 
@@ -144,9 +144,9 @@ class Eagle extends RestController{
             return $this->final_response($resp,$response);
         }       
         
-        $name = $this->input->post('userName');
-        $email = $this->input->post('userEmail');
-        $trackingFor = $this->input->post('trackingFor');
+        $name = $this->input->post(param_user_name);
+        $email = $this->input->post(param_user_email);
+        $trackingFor = $this->input->post(param_tarcking_for);
         $base_img =  $img;
 
         if(!empty($name) && !empty($email) && !empty($trackingFor)){
@@ -179,14 +179,14 @@ class Eagle extends RestController{
             $response = [false, $message, null];
             return $this->final_response($resp,$response);  
         }
-        $name = $this->input->post('name');
-        $cardNumber = $this->input->post('cardNumber');
-        $deviceId = $this->input->post('deviceId');
-        $class = $this->input->post('class');
-        $age = $this->input->post('age');
-        $number1 = $this->input->post('number1');
-        $number2 = $this->input->post('number2');
-        $number3 = $this->input->post('number3');
+        $name = $this->input->post(param_name);
+        $cardNumber = $this->input->post(param_card_number);
+        $deviceId = $this->input->post(param_device_id);
+        $class = $this->input->post(param_class);
+        $age = $this->input->post(param_age);
+        $number1 = $this->input->post(param_number1);
+        $number2 = $this->input->post(param_number2);
+        $number3 = $this->input->post(param_number1);
 
         if(!empty($name) && 
            !empty($cardNumber) && 
@@ -247,13 +247,13 @@ class Eagle extends RestController{
         $this->initializeEagleModel();
         $userExists = $this->Eagle_model->userExists($user_id);
         if($userExists){
-            $safeAreaName = $this->input->post('safeAreaName');
-            $longitude = $this->input->post('longitude');
-            $latitude = $this->input->post('Latitude');
-            $address = $this->input->post('address');
-            $safeAreaRadius = $this->input->post('safe_area_radius');
-            $alertOnExit = $this->input->post('alertOnExit');
-            $alertOnEntry = $this->input->post('alertOnEntry');
+            $safeAreaName = $this->input->post(param_safe_area_name);
+            $longitude = $this->input->post(param_longitude);
+            $latitude = $this->input->post(param_latitude);
+            $address = $this->input->post(param_address);
+            $safeAreaRadius = $this->input->post(param_safe_area_radius);
+            $alertOnExit = $this->input->post(param_alert_on_exit);
+            $alertOnEntry = $this->input->post(param_alert_on_entry);
             if( !empty($safeAreaName) &&
                 !empty($longitude) &&
                 !empty($latitude) &&
@@ -414,9 +414,9 @@ class Eagle extends RestController{
             return $data_final;            
         };
         $this->initializeEagleModel(); 
-        $number = $this->input->post('number');
-        $name = $this->input->post('name');
-        $relationship = $this->input->post('relationship');
+        $number = $this->input->post(param_number);
+        $name = $this->input->post(param_name);
+        $relationship = $this->input->post(param_relationship);
         $userExists =  $this->Eagle_model->userExists($user_id);
         $numberExists = $this->Eagle_model->numberExists($number);
 

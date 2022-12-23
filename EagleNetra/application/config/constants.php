@@ -302,45 +302,49 @@ define('STATIC_VALUE_CUSTOMER_GET_STARTED_SPLASH', 'get_started');
 define('APP_SARATHI', 'sarathi');
 define('APP_CUSTOMER', 'customer');
 define('APP_DRIVER', 'driver');
-//////////////////////////////////////////////////////////
-define('query_param_mobile', 'mobile');
-define('query_param_requested_api', 'requested_api');
-define('query_param_otp', 'otp');
-define('query_param_country_id', 'country_id');
-define('query_param_state_id', 'state_id');
-define('query_param_district_id', 'district_id');
 
-define('query_param_page_size', 'pageSize');
-define('query_param_page_no', 'pageNo');
-define('query_param_sort_by', 'sortBy');
-define('query_param_sort_dir', 'sortDir');
-//////////////////////////////////////////////////////////
-define('param_mobile', 'mobile');
-define('param_name', 'name');
-define('param_email', 'email');
-define('param_selected_driver_package_id', 'selectedPackageId');
-define('param_payment_mode', 'paymentMode');
-define('param_account_holder_name', 'account_holder_name');
-define('param_account_number', 'account_number');
-define('param_ifsc', 'ifsc');
+
+
+/////////////////////////get/////////////////////////////////
+define('query_param_phone_number', 'phone_number');
+define('query_param_otp', 'otp');
+
+
+
+
+/////////////////////////post/////////////////////////////////
+define('param_phone_number', 'mobile_phone_number');
+define('param_otp', 'otp');
+define('param_user_name', 'user_name');
+define('param_user_email', 'user_email');
+define('param_tarcking_for', 'tracking_for');
+define('param_name' , 'name');
+define('param_relationship','relationship');
+define('param_card_number', 'card_number');
+define('param_device_id', ' device_id');
+define('param_class', 'class');
+define('param_age', 'age');
+define('param_number', 'number');
+define('param_number1', 'number1');
+define('param_number2', 'number2');
+define('param_number3', 'number3');
+define('param_safe_area_name', 'safe_area_name');
 define('param_address', 'address');
-define('param_addressProof', 'address_proof');
-define('param_addressType_id', 'address_type_id');
-define('param_city_id', 'city_id');
-define('param_state_id', 'state_id');
-define('param_district_id', 'district_id');
-define('param_country_id', 'country_id');
-define('param_pincode', 'pincode');
+define('param_longitude', 'longitude');
+define('param_latitude', 'latitude');
+define('param_safe_area_radius','safe_area_radius');
+define('param_alert_on_exit','alert_on_exit');
+define('param_alert_on_entry', 'alert_on_entry');
+
 
 //////////////////////////////////////////////////////////
 define('file_profile_image', 'profile_image');
 //////////////////////////////////////////////////////////
 define('filename', 'file_name');
 //////////////////////////////////////////////////////////
-define('model_sarathi', 'sarathi/Sarathi_model');
-define('model_driver', 'driver/Driver_model');
-define('model_uid_server', 'Uid_server_model');
-define('model_common', 'Common_model');
+
+define('model_eagle', 'Eagle_model');
+
 //////////////////////////////////////////////////////////
 define('value_base_url', 'base_url');
 define('value_intro_page_data', 'intro_page_data');
