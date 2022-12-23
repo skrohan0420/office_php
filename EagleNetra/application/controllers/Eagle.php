@@ -64,15 +64,10 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-
         $splashData = $this->Eagle_model->getSplashScreen();
-        $message = '';
         $message = (!empty($splashData)) ? $this->lang_message(text_record_found) : $this->lang_message(text_no_record_found);
-
         $response = [true , $message , $splashData];
-        $final_response[DATA] = $resp($response);
-        $final_response[HTTP_STATUS] = http_ok;
-        return $final_response;
+        return $this->final_response($resp,$response);
     }
 
     private function signIn(){
@@ -85,36 +80,23 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-
         $number = $this->input->post('phoneNumber');
         if(!empty($number) && strlen($number) == 10 ){
             $isregistered = $this->Eagle_model->registered($number);
-
             if(!$isregistered){
                 $otp = strval($this->newotp());
                 $uid = 'USER_' . $this->new_uid();
                 $this->Eagle_model->addNumOtp($number, $otp, $uid);
-            }else{
-                $otp = $this->Eagle_model->getOtp($number);
-                $otp = $otp[0]['otp']; 
             }
-    
-            $message = '';
+            $otp = $this->Eagle_model->getOtp($number);
+            $otp = $otp[0]['otp'];
             $message = $isregistered ? $this->lang_message(text_user_already_exist) : $this->lang_message(text_new_user);
-    
             $response = [true , $message , $otp];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $otp = '';
-            $message =  $this->lang_message(text_mobile_number_must_be_ten_digit);    
-            $response = [true , $message , $otp];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }        
-
+            return $this->final_response($resp,$response);
+        }
+        $message =  $this->lang_message(text_mobile_number_must_be_ten_digit);    
+        $response = [true , $message , false];
+        return $this->final_response($resp,$response);     
     }
 
     private function vaidateOtp(){
@@ -136,9 +118,7 @@ class Eagle extends RestController{
         $message = $result ? $this->lang_message(text_otp_matched) : $this->lang_message(text_otp_not_matched);
 
         $response = [true , $message, $result];
-        $final_response[DATA] = $resp($response);
-        $final_response[HTTP_STATUS] = http_ok;
-        return $final_response;
+        return $this->final_response($resp,$response);
     }
 
     private function completeRegistration($id){
@@ -146,6 +126,7 @@ class Eagle extends RestController{
             $data_final = [
                 key_status => $data[0],
                 key_message => $data[1],
+                key_inserted => $data[2]
             ];
             return $data_final;
         };
@@ -160,9 +141,7 @@ class Eagle extends RestController{
         }else{
             $message = $this->lang_message(text_image_upload_failed);
             $response = [false, $message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_bad_request;
-            return $final_response;
+            return $this->final_response($resp,$response);
         }       
         
         $name = $this->input->post('userName');
@@ -172,33 +151,12 @@ class Eagle extends RestController{
 
         if(!empty($name) && !empty($email) && !empty($trackingFor)){
             $setData = $this->Eagle_model->completeRegistration($name, $email, $trackingFor,$id, $base_img);
-
-            $message = '';
             $message = $setData ? $this->lang_message(text_registration_successfull) : $this->lang_message(text_registration_failed);
-
-            $response = [true ,$message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;   
-        }else if(empty($name)){
-            $message = $this->lang_message(text_name_required);
-            $response = [true , $message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else if(empty($email)){
-            $message = $this->lang_message(text_email_required);
-            $response = [true , $message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else if(empty($trackingFor)){
-            $message = $this->lang_message(text_tracking_required);
-            $response = [true , $message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $response = [true ,$message , $setData ];
+            return $this->final_response($resp,$response); 
         }
+        $response = [true , $this->lang_message(text_all_feilds_are_required), false];
+        return $this->final_response($resp,$response); 
     }
 
     private function addSmartCardDetails($user_id = null){
@@ -206,6 +164,7 @@ class Eagle extends RestController{
             $data_final = [
                 key_status => $data[0],
                 key_message => $data[1],
+                key_inserted => $data[2]
             ];
             return $data_final;
         };
@@ -214,15 +173,11 @@ class Eagle extends RestController{
         $path = 'assets';
 
         if($this->do_upload($path, file_profile_image)){
-
             $img = $path .'/'. $this->upload->data(filename);
-            
         }else{
             $message = $this->lang_message(text_image_upload_failed);
             $response = [false, $message, null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_bad_request;
-            return $final_response;
+            return $this->final_response($resp,$response);  
         }
         $name = $this->input->post('name');
         $cardNumber = $this->input->post('cardNumber');
@@ -241,7 +196,6 @@ class Eagle extends RestController{
            (!empty($number1) || 
            !empty($number2) || 
            !empty($number3))){
-            
             $numbers = array(
                 'n1' => $number1,
                 'n2' => $number2,
@@ -252,50 +206,13 @@ class Eagle extends RestController{
                     unset($numbers[$key]);
                 }
             }
-   
             $setData = $this->Eagle_model->addSmartCardDetails($name,$user_id, $cardNumber, $deviceId, $class, $age, $numbers, $img);
-
-            $message = '';
-            $message = $setData ;
-
-            $response = [true ,$message];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;   
-        }if(empty($name)){
-            $response = [true , $this->lang_message(text_name_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }if(empty($cardNumber)){
-            $response = [true , $this->lang_message(text_card_number_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }if(empty($deviceId)){
-            $response = [true , $this->lang_message(text_device_id_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }if(empty($class) || empty($age)){
-            $response = [true , $this->lang_message(text_class_age_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }if(($number1 =! '' || 
-            $number2 =! '' || 
-            $number3 =! '')){
-            $response = [true , $this->lang_message(text_number_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }if(empty($base_img)){
-            $response = [true , $this->lang_message(text_image_required)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $message = $setData ? $this->lang_message(text_details_added) : $this->lang_message(text_device_exists);
+            $response = [true ,$message,  $setData ];
+            return $this->final_response($resp,$response);     
         }
-
+        $response = [true , $this->lang_message(text_all_feilds_are_required), false];
+        return $this->final_response($resp,$response);  
     }
 
     private function getKidsData($user_id){
@@ -308,22 +225,14 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-        
         $userExists = $this->Eagle_model->userExists($user_id);
-
         if($userExists){
             $kidsData = $this->Eagle_model->getKidsData($user_id);
-
             $response = [true , $this->lang_message(text_user_exist), $kidsData];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $response = [true , $this->lang_message(text_user_not_exist), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }        
+            return $this->final_response($resp,$response);
+        }
+        $response = [true , $this->lang_message(text_user_not_exist), null];
+        return $this->final_response($resp,$response);          
     }
 
     private function setSafeArea($user_id){
@@ -331,14 +240,13 @@ class Eagle extends RestController{
             $data_final = [
                 key_status => $data[0],
                 key_message => $data[1],
+                key_inserted => $data[2]
             ];
             return $data_final;
         };
         $this->initializeEagleModel();
-
         $userExists = $this->Eagle_model->userExists($user_id);
         if($userExists){
-
             $safeAreaName = $this->input->post('safeAreaName');
             $longitude = $this->input->post('longitude');
             $latitude = $this->input->post('Latitude');
@@ -346,55 +254,23 @@ class Eagle extends RestController{
             $safeAreaRadius = $this->input->post('safe_area_radius');
             $alertOnExit = $this->input->post('alertOnExit');
             $alertOnEntry = $this->input->post('alertOnEntry');
-
-
-            if(
-                !empty($safeAreaName) &&
+            if( !empty($safeAreaName) &&
                 !empty($longitude) &&
                 !empty($latitude) &&
                 !empty($safeAreaRadius) &&
-                !empty($address)
-            ){
-                $result = $this->Eagle_model->setSafeArea($address,$safeAreaName,$longitude,$latitude,$alertOnExit,$alertOnEntry,$safeAreaRadius,$user_id);
-
-
-                $response = [$result , $this->lang_message(text_safe_area_added)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response;
-            }if(empty($safeAreaName)){
-                $response = [true , $this->lang_message(text_safe_area_name_required)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response;
-            }if(empty($longitude)){
-                $response = [true , $this->lang_message(text_longitude_required)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response;
-            }if(empty($latitude)){
-                $response = [true , $this->lang_message(text_latitude_required)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response;
-            }if(empty($safeAreaRadius)){
-                $response = [true , $this->lang_message(text_safe_area_radius_required)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response;
-            }if(empty($address)){
-                $response = [true , $this->lang_message(text_safe_area_address_required)];
-                $final_response[DATA] = $resp($response);
-                $final_response[HTTP_STATUS] = http_ok;
-                return $final_response; 
+                !empty($address)){
+                $result = $this
+                        ->Eagle_model
+                        ->setSafeArea($address,$safeAreaName,$longitude,$latitude,$alertOnExit,$alertOnEntry,$safeAreaRadius,$user_id);
+                $response = [true , $this->lang_message(text_safe_area_added), true];
+                return $this->final_response($resp,$response);
             }
-           
-        }else{
-            $response = [$userExists , $this->lang_message(text_user_not_exist)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $response = [true , $this->lang_message(text_all_feilds_are_required), false];
+            return $this->final_response($resp,$response);  
+            
         }
+        $response = [true , $this->lang_message(text_user_not_exist), false];
+        return $this->final_response($resp,$response);
     }
 
     private function getUserDetails($user_id){
@@ -407,21 +283,15 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-
         $userExists = $this->Eagle_model->userExists($user_id);
         if($userExists){
             $userData = $this->Eagle_model->getUserDetails($user_id);
-
-            $response = [$userExists , $this->lang_message(text_record_found), $userData ];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $response = [$userExists , $this->lang_message(text_user_not_exist), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $response = [true , $this->lang_message(text_record_found), $userData ];
+            return $this->final_response($resp,$response);
         }
+        $response = [true , $this->lang_message(text_user_not_exist), null];
+        return $this->final_response($resp,$response);
+        
     }
 
     private function getSafeArea($user_id){
@@ -440,18 +310,11 @@ class Eagle extends RestController{
         if($userExists){
             $safeAreaData = $this->Eagle_model->getSafeArea($user_id);
 
-            $response = [$userExists , $this->lang_message(text_user_exist), $safeAreaData];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $response = [$userExists , $this->lang_message(text_user_not_exist), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $response = [true , $this->lang_message(text_user_exist), $safeAreaData];
+            return $this->final_response($resp,$response);
         }
-
-
+        $response = [true , $this->lang_message(text_user_not_exist), null];
+        return $this->final_response($resp,$response);        
     }
 
     private function setSafeAreaStatus($safeAreaId){
@@ -464,23 +327,14 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
-        
-
         $KeyExists = $this->Eagle_model->keyExists($safeAreaId);
-        
         if($KeyExists){
             $isActive = $this->Eagle_model->setSafeAreaStatus($safeAreaId); 
-
-            $response = [true , $this->lang_message(text_user_exist), $isActive];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $response = [true , $this->lang_message(text_user_not_exist), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }   
+            $response = [true , $this->lang_message(text_status_updated), $isActive];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true , $this->lang_message(text_user_not_exist), false];
+        return $this->final_response($resp,$response);
     }
 
     private function setLocation($smartCardId){
@@ -488,30 +342,21 @@ class Eagle extends RestController{
             $data_final = [
                 key_status => $data[0],
                 key_message => $data[1],
+                key_inserted => $data[2]
             ];
             return $data_final;
         };
         $this->initializeEagleModel();
-
         $smartCardExists = $this->Eagle_model->smartCardExists($smartCardId );
-
         if($smartCardExists){
             $long = $this->input->post('long');
             $lat = $this->input->post('lat');
-
             $setData = $this->Eagle_model->setLocation($smartCardId,$long,$lat);
-
-            $response = [$smartCardExists, $this->lang_message(text_loaction_inserted)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
-        }else{
-            $response = [$smartCardExists, $this->lang_message(text_loaction_not_inserted)];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            $response = [true, $this->lang_message(text_loaction_inserted),true];
+            return $this->final_response($resp,$response);
         }
-
+        $response = [true, $this->lang_message(text_loaction_not_inserted),false];
+        return $this->final_response($resp,$response);
     }
 
     private function getLocation($smartCardId){
@@ -529,18 +374,11 @@ class Eagle extends RestController{
 
         if($smartCardExists){
             $latLong = $this->Eagle_model->getLocation($smartCardId);
-
-
-            $response = [$smartCardExists, $this->lang_message(text_loaction_found), $latLong];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;  
-        }else{
-            $response = [$smartCardExists, $this->lang_message(text_loaction_not_found), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;  
+            $response = [true, $this->lang_message(text_loaction_found), $latLong];
+            return $this->final_response($resp,$response);
         }
+        $response = [true, $this->lang_message(text_loaction_not_found), null];
+        return $this->final_response($resp,$response);        
     }
 
     private function getLocationHistory($smartCardId){
@@ -558,18 +396,12 @@ class Eagle extends RestController{
 
         if($smartCardExists){
             $latLong = $this->Eagle_model->getLocationHistory($smartCardId);
-
-
-            $response = [$smartCardExists, $this->lang_message(text_loaction_found), $latLong];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;  
-        }else{
-            $response = [$smartCardExists, $this->lang_message(text_loaction_not_found), null];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;  
+            $response = [true, $this->lang_message(text_loaction_found), $latLong];
+            return $this->final_response($resp,$response);  
         }
+        $response = [true, $this->lang_message(text_loaction_not_found), null];
+        return $this->final_response($resp,$response);  
+        
     }
 
     private function addSecondaryParent($user_id){

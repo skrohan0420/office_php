@@ -10,7 +10,7 @@ $lang[text_otp_not_matched] = 'OTP not matched';
 $lang[text_otp_matched] = 'OTP matched';
 
 $lang[text_user_already_exist] = 'user already exist';
-$lang[text_user_not_exist] = 'user not exist';
+$lang[text_user_not_exist] = 'user does not exist';
 
 $lang[text_registration_successfull] = 'registration successfull';
 $lang[text_registration_failed] = 'registration failed';
@@ -46,6 +46,6 @@ $lang[text_all_feilds_are_required] = 'all feilds are required';
 $lang[text_loaction_inserted] ='loaction inserted';
 $lang[text_loaction_not_inserted] = 'loaction not inserted';
 $lang[text_details_added] ='details added';
-$lang[text_details_not_added]='text_details_not_added';
-
+$lang[text_details_not_added]='text details not added';
+$lang[text_status_updated] = 'text status updated'
 ?>

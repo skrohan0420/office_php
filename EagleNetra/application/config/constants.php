@@ -231,6 +231,7 @@ define('text_all_feilds_are_required','text_all_feilds_are_required');
 define('text_loaction_inserted', 'text_loaction_inserted');
 define('text_loaction_not_inserted', 'text_loaction_not_inserted');
 define('text_image_required' , 'image_required');
+define('text_status_updated', 'status_updated');
 //////////////////////////////////////////////////////////
 define('http_ok', 200);
 define('http_no_content', 204);

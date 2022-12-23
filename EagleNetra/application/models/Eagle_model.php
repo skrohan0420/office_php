@@ -115,7 +115,7 @@ class Eagle_model extends CI_Model {
         $setData = $this->db->where('uid' , $id)->update(table_user, $userData);
         
         // return $setData;
-        return $userData;
+        return $setData;
 
     }
 
@@ -162,8 +162,6 @@ class Eagle_model extends CI_Model {
             ];
             array_push($emergencyData, $row);
         }        
-
-
         $cardData = array(
             'uid'=> $smartCardId,
             'name'=> $name,
@@ -185,18 +183,15 @@ class Eagle_model extends CI_Model {
 
         if($userExists > 0){
             if($device_id > 0){
-                return $this->lang_message(text_device_exists);
+               return false;    
             }
-            else{
-                $cardQ = $this->db->insert(table_smart_card, $cardData);
-                $emergencyQ = $this->db->insert_batch(table_emergency_numbers, $emergencyData);
-                return $this->lang_message(text_device_added);
-            }
-        }else{
-            return $this->lang_message(text_user_id_not_matched);
+            $cardQ = $this->db->insert(table_smart_card, $cardData);
+            $emergencyQ = $this->db->insert_batch(table_emergency_numbers, $emergencyData);
+            return true;
         }
+        return false;
     }
-
+    
     public function userExists($user_id){ 
         $user = $this->db
         ->select('*')
@@ -268,11 +263,8 @@ class Eagle_model extends CI_Model {
                 $kidData[$key]['profile_image'] = base_url($val['profile_image']);
             }
             return $kidData;
-        }else{
-            return null;
         }
-        
-
+        return false;
     }
 
     public function setSafeArea($address,$safeAreaName,$longitude,$latitude, $alertOnExit,$alertOnEntry, $safeAreaRadius, $user_id){
@@ -422,9 +414,8 @@ class Eagle_model extends CI_Model {
 
         if($rows > 0){
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
     
     public function addSecondaryParent($name, $number, $relationship){
@@ -448,9 +439,8 @@ class Eagle_model extends CI_Model {
         if($addOtp && $addUser){
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
+        
 
 
     }
