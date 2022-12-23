@@ -1,0 +1,36 @@
+<?php
+$lang[text_app_version_fetched_successfully] = 'App version fetched successfully';
+$lang[text_base_url_found_successfully] = 'Base url found successfully';
+$lang[text_email_require] = 'Email is required';
+$lang[text_password_require] = 'password is required';
+$lang[text_userid_require] = 'User Id required';
+$lang[text_check_all_fields] = 'All Fields Are required';
+$lang[text_userid_password_require] = 'User id or password is incorrect';
+$lang[text_successfully_loggedin] = 'You have successfully logged in';
+$lang[text_registration_successfull] = 'Registration Successfull';
+$lang[text_error_occurred] = 'An Error Occurred';
+$lang[text_email_already_exist] = 'Email Already Exist';
+$lang[text_invalid_image_format] = 'Invalid Image Format';
+$lang[text_email_required] = 'Email Is required';
+$lang[text_otp_Sent] = 'Otp Sent';
+$lang[text_failed_to_sent_otp] = 'Failed To Sent Otp';
+$lang[text_email_not_exist] = 'This Email is not Exist';
+$lang[text_password_reset_successfully] = 'Password Reset Successfully';
+$lang[text_password_not_reset] = 'Password Not Reset';
+$lang[text_userid_is_required] = 'User Id Is required';
+$lang[text_record_inserted_successfully] = 'Record Inserted Successfully';
+$lang[text_attach_aadhaar_front] = 'Please Attach Aadhaar Front Image';
+$lang[text_attach_aadhaar_back] = 'Please Attach Aadhaar Back Image';
+$lang[text_education_list_fetched_successfully] = 'Education List Fetched Successfully';
+$lang[text_education_list_fetched_unsuccessful] = 'Education List Fetched Unsuccessful';
+$lang[text_specialities_list_fetched_successfully] = 'Specialities List Fetched Successfully';
+$lang[text_specialities_list_fetched_unsuccessful] = 'Specialities List Fetched Unsuccessful';
+$lang[text_clinic_added_successfull] = 'Clinic Added Successfull';
+$lang[text_no_record_found] = 'No Record Found';
+$lang[text_record_found] = 'Record Found';
+$lang[text_invalid_user] = 'Invalid User';
+$lang[text_email_message] = 'Hi, %s We received a request to reset your Account password. Enter the following password reset code: %s';
+$lang[text_success] = 'Success';
+$lang[text_failed] = 'Failed';
+$lang[text_upiid_or_bankdetails] = 'Please give UPI ID or Bank Details';
+?>

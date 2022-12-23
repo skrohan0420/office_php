@@ -1,0 +1,41 @@
+[15-Apr-2022 16:59:56 UTC] PHP Warning:  The use statement with non-compound name 'Exception' has no effect in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/REST_Controller.php on line 4
+[15-Apr-2022 16:59:56 UTC] PHP Warning:  The use statement with non-compound name 'RecursiveArrayIterator' has no effect in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/REST_Controller.php on line 5
+[15-Apr-2022 16:59:56 UTC] PHP Warning:  The use statement with non-compound name 'RecursiveIteratorIterator' has no effect in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/REST_Controller.php on line 6
+[15-Apr-2022 16:59:56 UTC] PHP Warning:  The use statement with non-compound name 'stdClass' has no effect in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/REST_Controller.php on line 7
+[15-Apr-2022 17:03:53 UTC] PHP Fatal error:  require(): Failed opening required '/home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/chriskacerguis/codeigniter-restserver' (include_path='.:/usr/local/php74/pear') in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/controllers/Welcome.php on line 3
+[15-Apr-2022 17:04:54 UTC] PHP Fatal error:  require(): Failed opening required '/home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/chriskacerguis/codeigniter-restserver' (include_path='.:/usr/local/php74/pear') in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/controllers/Welcome.php on line 3
+[15-Apr-2022 17:04:55 UTC] PHP Fatal error:  require(): Failed opening required '/home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/chriskacerguis/codeigniter-restserver' (include_path='.:/usr/local/php74/pear') in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/controllers/Welcome.php on line 3
+[15-Apr-2022 17:06:58 UTC] PHP Fatal error:  require(): Failed opening required '/home/customer/www/easyorg.v-xplore.com/public_html/api/application/libraries/chriskacerguis/codeigniter-restserver' (include_path='.:/usr/local/php74/pear') in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/controllers/Welcome.php on line 3
+[16-Apr-2022 10:31:40 UTC] PHP Warning:  Constants may only evaluate to scalar values, arrays or resources in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/config/constants.php on line 87
+[27-Apr-2022 07:05:43 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/config/constants.php on line 129
+[27-Apr-2022 07:07:21 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/config/constants.php on line 129
+[27-Apr-2022 07:07:45 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/config/constants.php on line 148
+[27-Apr-2022 07:22:20 UTC] PHP Notice:  Constant field_headers already defined in /home/customer/www/easyorg.v-xplore.com/public_html/api/application/config/constants.php on line 100
+[29-Apr-2022 11:04:07 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 106
+[29-Apr-2022 11:04:12 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 106
+[29-Apr-2022 11:04:14 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 106
+[29-Apr-2022 11:04:15 UTC] PHP Parse error:  syntax error, unexpected 'define' (T_STRING) in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 106
+[30-Apr-2022 10:02:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function defile() in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php:136
+Stack trace:
+#0 /home/customer/www/instanthealth.in/public_html/api/v2/system/core/CodeIgniter.php(73): require_once()
+#1 /home/customer/www/instanthealth.in/public_html/api/v2/index.php(315): require_once('/home/customer/...')
+#2 {main}
+  thrown in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 136
+[30-Apr-2022 11:27:39 UTC] PHP Notice:  Constant query_param_email already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 140
+[30-Apr-2022 11:28:38 UTC] PHP Notice:  Constant query_param_email already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 140
+[30-Apr-2022 11:28:41 UTC] PHP Notice:  Constant query_param_email already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 140
+[30-Apr-2022 11:28:44 UTC] PHP Notice:  Constant query_param_email already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 140
+[02-May-2022 13:26:03 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/customer/www/instanthealth.in/public_html/api/v2/application/controllers/Doctor.php on line 343
+[02-May-2022 13:27:14 UTC] PHP Fatal error:  Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in /home/customer/www/instanthealth.in/public_html/api/v2/application/controllers/Doctor.php on line 348
+[03-May-2022 05:31:40 UTC] PHP Parse error:  syntax error, unexpected ':' in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 158
+[03-May-2022 07:38:59 UTC] PHP Notice:  Constant key_message already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 120
+[03-May-2022 07:39:03 UTC] PHP Notice:  Constant key_message already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 120
+[04-May-2022 06:16:41 UTC] PHP Notice:  Constant key_date already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 134
+[04-May-2022 06:16:41 UTC] PHP Notice:  Constant field_doctor_id already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 172
+[04-May-2022 06:17:08 UTC] PHP Notice:  Constant field_doctor_id already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 171
+[26-May-2022 11:13:38 UTC] PHP Fatal error:  Cannot redeclare Doctor::availableTimings() in /home/customer/www/instanthealth.in/public_html/api/v2/application/controllers/Doctor.php on line 768
+[23-Jun-2022 06:32:55 UTC] PHP Notice:  Constant field_doctor_uid already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 213
+[23-Jun-2022 09:37:08 UTC] PHP Notice:  Constant key_timings already defined in /home/customer/www/instanthealth.in/public_html/api/v2/application/config/constants.php on line 175
+[23-Jun-2022 11:39:11 UTC] PHP Fatal error:  Cannot redeclare Doctor::voiceWithFees() in /home/customer/www/instanthealth.in/public_html/api/v2/application/controllers/Doctor.php on line 488
+[24-Jun-2022 08:02:34 UTC] PHP Fatal error:  Cannot redeclare Doctor::voiceWithFees_get() in /home/customer/www/instanthealth.in/public_html/api/v2/application/controllers/Doctor.php on line 1034
+[24-Jun-2022 10:05:08 UTC] PHP Fatal error:  Cannot redeclare Doctor_Model::getAvailability() in /home/customer/www/instanthealth.in/public_html/api/v2/application/models/Doctor_Model.php on line 610
