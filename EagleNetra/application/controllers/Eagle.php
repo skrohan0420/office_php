@@ -44,8 +44,10 @@ class Eagle extends RestController{
         return rand(1000 , 9999);
     }
 
-    private function response(){
-        
+    private function final_response($resp,$response){
+        $final_response[DATA] = $resp($response);
+        $final_response[HTTP_STATUS] = http_ok;
+        return $final_response;
     }
 
     private function lang_message($str){
@@ -579,9 +581,6 @@ class Eagle extends RestController{
             ];
             return $data_final;            
         };
-
-        
-
         $this->initializeEagleModel(); 
         $number = $this->input->post('number');
         $name = $this->input->post('name');
@@ -591,28 +590,20 @@ class Eagle extends RestController{
 
         if(!$userExists){
             $response = [true, $this->lang_message(text_user_not_exist),false];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;
+            return $this->final_response($resp,$response);
         }
         if(empty($name) || empty($number) || empty($relationship)){
             $response = [true, $this->lang_message(text_all_feilds_are_required),false];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response; 
+            return $this->final_response($resp,$response);
         }  
         if($numberExists){
             $response = [true, $this->lang_message(text_user_already_exist),false];
-            $final_response[DATA] = $resp($response);
-            $final_response[HTTP_STATUS] = http_ok;
-            return $final_response;    
+            return $this->final_response($resp,$response);
         }
         $addDetails = $this->Eagle_model->addSecondaryParent($name, $number, $relationship);
         $message = $addDetails ? $this->lang_message(text_details_added) : $this->lang_message(text_details_not_added);
-        $response = [$addDetails,$message,$addDetails];
-        $final_response[DATA] = $resp($response);
-        $final_response[HTTP_STATUS] = http_ok;
-        return $final_response; 
+        $response = [true,$message,$addDetails];
+        return $this->final_response($resp,$response);
     }
     
 
