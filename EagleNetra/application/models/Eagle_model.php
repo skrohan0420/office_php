@@ -445,5 +445,108 @@ class Eagle_model extends CI_Model {
 
     }
 
+    public function addPackage($price, $validity){
+        $pkgData = [
+            'uid' => 'PACKAGE_'.$this->new_uid(),
+            'price' => $price,
+            'validity' => $validity
+        ];
+        $setData = $this->db->insert(table_packages, $pkgData);
+        return $setData;
+    }
+
+    public function getPackages(){
+        $pkgData = $this->db
+                        ->select('uid as id , price , validity')
+                        ->get(table_packages);
+
+        $pkgData = $pkgData->result_array();
+
+        return $pkgData;
+    }
+    
+    public function getSinglePackage($package_id){
+        $pkgData = $this->db
+                        ->select('uid as id , price , validity')
+                        ->where('uid', $package_id)
+                        ->get(table_packages);
+
+        $pkgData = $pkgData->result_array();
+
+        return $pkgData;
+    }
+
+    public function isSubscribed($smartCardId){
+        $packageActive = $this->db
+                                ->select('*')
+                                ->where('smart_card_id', $smartCardId)
+                                ->where('status', 'active')
+                                ->get(table_subscriptions);
+
+        $packageActive = $packageActive->num_rows();
+
+        if($packageActive > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function setSubscription($smartCardId,$package_id){
+
+        $packageVaidity = $this->db
+                                ->select('validity')
+                                ->where('uid', $package_id)
+                                ->get(table_packages);
+
+        $packageVaidity = $packageVaidity->result_array();
+        $packageVaidity = $packageVaidity[0]['validity'];
+        $currentDate = date("Y-m-d H:i:s", time());
+        $expiryDate = strtotime($currentDate . ' + ' .$packageVaidity);
+        $expiryDate = date("Y-m-d H:i:s",$expiryDate);
+
+        $subscriptionData =[
+            'uid' => 'SUBSCRIPTION_'.$this->new_uid(),
+            'smart_card_id' => $smartCardId,
+            'package_id' => $package_id,
+            'expiry_date' => $expiryDate,
+        ];
+
+        $setSubscription = $this->db->insert(table_subscriptions , $subscriptionData);
+
+        return $setSubscription;
+    }
+
+    public function setStatus($smartCardId){
+        $expiryDate = $this->db
+                            ->select('expiry_date')
+                            ->where('smart_card_id', $smartCardId)
+                            ->where('status', 'active')
+                            ->get(table_subscriptions);
+
+        $expiryDate = $expiryDate->result_array();
+        $expiryDate = $expiryDate[0]['expiry_date'];
+        $currentDate = date("Y-m-d H:i:s", time());
+
+
+        if(strtotime($expiryDate) < strtotime($currentDate)){
+            $setStatus = $this->db
+                            ->set('status','deactive')
+                            ->where('smart_card_id', $smartCardId)
+                            ->where('status', 'active')
+                            ->update(table_subscriptions);
+            return false;
+        }
+        return true;
+    }
+
+
+
+
+
+
+
+
+
+
 }
 ?>

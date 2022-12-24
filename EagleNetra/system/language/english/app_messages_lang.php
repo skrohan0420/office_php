@@ -46,6 +46,12 @@ $lang[text_all_feilds_are_required] = 'all feilds are required';
 $lang[text_loaction_inserted] ='loaction inserted';
 $lang[text_loaction_not_inserted] = 'loaction not inserted';
 $lang[text_details_added] ='details added';
-$lang[text_details_not_added]='text details not added';
-$lang[text_status_updated] = 'text status updated'
+$lang[text_details_not_added]='details not added';
+$lang[text_status_updated] = 'tstatus updated';
+$lang[text_allready_subscribed] = 'allready subscribed';
+$lang[text_subscribed_successfully] = 'subscribed successfully';
+$lang[text_cannot_subscribe] = 'cannot subscribe';
+$lang[text_subscription_is_valid] = 'subscription is valid';
+$lang[text_subscription_expired] = 'subscription expired';
+$lang[text_user_not_subscribed] = 'user not subscribed';
 ?>

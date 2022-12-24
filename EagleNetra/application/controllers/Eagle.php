@@ -438,8 +438,117 @@ class Eagle extends RestController{
         return $this->final_response($resp,$response);
     }
     
+    private function addPackage(){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_inserted => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel(); 
+        $price = $this->input->post(param_price);
+        $validity = $this->input->post(param_validity);
 
-   
+        if(!empty($price) && !empty($validity)){
+            $setData = $this->Eagle_model->addPackage($price, $validity);
+            $message = $setData ? $this->lang_message(text_details_added) : $this->lang_message(text_details_not_added);
+            $response = [true, $message, true];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true, $this->lang_message(text_all_feilds_are_required),false];
+        return $this->final_response($resp,$response);
+    }
+
+    private function getPackages(){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_data => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel();
+        $getData = $this->Eagle_model->getPackages();
+        if($getData){
+            $message = $getData ? $this->lang_message(text_record_found) : $this->lang_message(text_no_record_found);
+            $response = [true, $message, $getData];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true, $this->lang_message(text_no_record_found),false];
+        return $this->final_response($resp,$response);
+    }
+
+    private function getSinglePackage($package_id){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_data => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel();
+        $getData = $this->Eagle_model->getSinglePackage($package_id);
+
+        if($getData){
+            $message = $getData ? $this->lang_message(text_record_found) : $this->lang_message(text_no_record_found);
+            $response = [true, $message, $getData];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true, $this->lang_message(text_no_record_found),false];
+        return $this->final_response($resp,$response);
+
+    }
+    
+    private function setSubscription($smartCardId,$package_id){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_subscribed => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel();
+
+        $isSubscribed = $this->Eagle_model->isSubscribed($smartCardId);
+
+        if($isSubscribed){
+            $response = [true, $this->lang_message(text_allready_subscribed),false];
+            return $this->final_response($resp,$response);
+        }
+        $setSubscription = $this->Eagle_model->setSubscription($smartCardId,$package_id);
+        if($setSubscription){
+            $response = [true, $this->lang_message(text_subscribed_successfully) , true];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true, $this->lang_message(text_cannot_subscribe) , false];
+        return $this->final_response($resp,$response);        
+    }
+
+    private function setSubscriptionStatus($smartCardId){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_subscription_status => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel();
+        $isSubscribed = $this->Eagle_model->isSubscribed($smartCardId);
+        if($isSubscribed){
+            $setStatus = $this->Eagle_model->setStatus($smartCardId);
+            $message = $setStatus ? $this->lang_message(text_subscription_is_valid) : $this->lang_message(text_subscription_expired);
+            $response = [true, $message , $setStatus];
+            return $this->final_response($resp,$response);
+        }
+        $response = [true, $this->lang_message(text_user_not_subscribed), false];
+        return $this->final_response($resp,$response); 
+    }
 
 
 
@@ -447,6 +556,53 @@ class Eagle extends RestController{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function  setSubscriptionStatus_post($smartCardId){
+        $response = $this->setSubscriptionStatus($smartCardId);
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
+
+
+    public function setSubscription_post($smartCardId,$package_id){
+        $response = $this->setSubscription($smartCardId,$package_id);
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
+
+    public function getSinglePackage_get($package_id){
+        $response = $this->getSinglePackage($package_id);
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
+
+    public function getPackages_get(){
+        $response =$this->getPackages();
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
+
+    public function addPackage_post(){
+        $response = $this->addPackage();
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
 
     public function addSecondaryParent_post($user_id){
         $response = $this->addSecondaryParent($user_id);
