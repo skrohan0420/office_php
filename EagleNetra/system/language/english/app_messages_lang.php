@@ -65,4 +65,6 @@ $lang[text_invalid_address] = 'invalid address';
 $lang[text_invalid_relationship] = 'invalid relationship';
 $lang[text_invalid_validity] = 'invalid validity';
 $lang[text_invalid_price] = 'invalid price';
+$lang[text_subscription_data_found] = 'subscription data found';
+$lang[text_subscription_data_not_found] = 'subscription data not found';
 ?>

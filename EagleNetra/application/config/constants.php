@@ -138,6 +138,7 @@ define('key_upload_path', 'upload_path');
 define('key_allowed_types', 'allowed_types');
 define('key_description', 'description');
 define('key_safe_area_status', 'safe_area_status');
+define('key_subscription_data', 'subscription_data');
 //////////////////////////////////////////////////////////
 define('text_base_url_found_successfully', 'base_url_found_successfully');
 define('text_record_found', 'record_found');
@@ -189,6 +190,8 @@ define('text_invalid_card_number' , 'invalid_card_number');
 define('text_invalid_relationship' , 'invalid_relationship');
 define('text_invalid_price' ,  'invalid_price');
 define('text_invalid_validity', 'invalid_validity');
+define('text_subscription_data_found', 'subscription_data_found');
+define('text_subscription_data_not_found', 'subscription_data_not_found');
 //////////////////////////////////////////////////////////
 define('http_ok', 200);
 define('http_no_content', 204);

@@ -539,11 +539,17 @@ class Eagle_model extends CI_Model {
         return true;
     }
 
-
-
-
-
-
+    public function getSubscriptionStatus($smartCardId){
+        $status = $this->db
+                        ->select('uid as id,expiry_date,status')
+                        ->where('smart_card_id', $smartCardId)
+                        ->where('status', 'active')
+                        ->get(table_subscriptions);
+        $status = $status->result_array();
+        return $status;
+        
+        
+    }
 
 
 

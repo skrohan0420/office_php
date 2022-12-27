@@ -5,7 +5,6 @@ use eaglenetra\RestServer\RestController;
 
 class Eagle extends RestController{
 
-
     public function __construct(){
         header(header_allow_origin);
         header(header_allow_methods);
@@ -634,6 +633,29 @@ class Eagle extends RestController{
         return $this->final_response($resp,$response); 
     }
 
+    private function getSubscriptionStatus($smartCardId){
+        $resp = function($data){
+            $data_final = [
+                key_status => $data[0],
+                key_message => $data[1],
+                key_subscription_data => $data[2]
+            ];
+            return $data_final;            
+        };
+        $this->initializeEagleModel();
+        $smartCardExists = $this->Eagle_model->smartCardExists($smartCardId);
+
+        if($smartCardExists){
+            $subStatus = $this->Eagle_model->getSubscriptionStatus($smartCardId);
+            $message =  $subStatus ? $this->lang_message(text_subscription_data_found):$this->lang_message(text_subscription_data_not_found);
+            $response = [true, $message , $subStatus];
+            return $this->final_response($resp,$response);
+        }
+        $message = $this->lang_message(text_user_not_exist);
+        $response = [true, $message , $smartCardExists];
+        return $this->final_response($resp,$response);
+         
+    }
 
 
 
@@ -654,19 +676,15 @@ class Eagle extends RestController{
 
 
 
-
-
-
-
-
-
-
-
+    public function  getSubscriptionStatus_get($smartCardId){
+        $response = $this->getSubscriptionStatus($smartCardId);
+        $this->response($response[DATA], $response[HTTP_STATUS]);
+    }
+    
     public function  setSubscriptionStatus_post($smartCardId){
         $response = $this->setSubscriptionStatus($smartCardId);
         $this->response($response[DATA], $response[HTTP_STATUS]);
     }
-
 
     public function setSubscription_post($smartCardId,$package_id){
         $response = $this->setSubscription($smartCardId,$package_id);
