@@ -449,7 +449,7 @@ class Eagle_model extends CI_Model {
         $pkgData = [
             'uid' => 'PACKAGE_'.$this->new_uid(),
             'price' => $price,
-            'validity' => $validity
+            'validity' => $validity . ' days'
         ];
         $setData = $this->db->insert(table_packages, $pkgData);
         return $setData;

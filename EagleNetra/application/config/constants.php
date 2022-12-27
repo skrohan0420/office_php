@@ -201,7 +201,7 @@ define('HTTP_STATUS', 'http_status');
 define('query_param_phone_number', 'phone_number');
 define('query_param_otp', 'otp');
 /////////////////////////post/////////////////////////////////
-define('param_phone_number', 'mobile_phone_number');
+define('param_phone_number', 'phone_number');
 define('param_otp', 'otp');
 define('param_user_name', 'user_name');
 define('param_user_email', 'user_email');
