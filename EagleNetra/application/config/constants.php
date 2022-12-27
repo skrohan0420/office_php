@@ -192,6 +192,21 @@ define('text_invalid_price' ,  'invalid_price');
 define('text_invalid_validity', 'invalid_validity');
 define('text_subscription_data_found', 'subscription_data_found');
 define('text_subscription_data_not_found', 'subscription_data_not_found');
+define('text_userid_required','user_id_required');
+define('text_username_required','username_required');
+define('text_userdetails_required','user details_required');
+define('text_all_required','all_fields_are_required');
+define('text_address_required', 'Address is required');
+define('text_details_added' , 'details_added');
+define('text_details_not_added' , 'details_not_added');
+define('text_subscription_is_valid' , 'subscription_is_valid');
+define('text_subscription_expired' , 'subscription_expired');
+define('text_user_not_subscribed' ,'user_not_subscribed');
+define('text_invalid_pnone_number' , 'invalid_pnone_number');
+define('text_image_upload_failed', 'image_upload_failed');
+define('text_invalid_email', 'invaild_email');
+define('text_invalid_name', 'invalid_name');
+//////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 define('http_ok', 200);
 define('http_no_content', 204);
@@ -267,20 +282,6 @@ define('key_subscribed', 'subscribed');
 define('key_subscription_status' ,'subscription_status');
 define('key_encrypt_name' , 'encrypt_name');
 ///////////////////////////////////////
-define('text_userid_required','user_id_required');
-define('text_username_required','username_required');
-define('text_userdetails_required','user details_required');
-define('text_all_required','all_fields_are_required');
-define('text_address_required', 'Address is required');
-define('text_details_added' , 'details_added');
-define('text_details_not_added' , 'details_not_added');
-define('text_subscription_is_valid' , 'subscription_is_valid');
-define('text_subscription_expired' , 'subscription_expired');
-define('text_user_not_subscribed' ,'user_not_subscribed');
-define('text_invalid_pnone_number' , 'invalid_pnone_number');
-define('text_image_upload_failed', 'image_upload_failed');
-define('text_invalid_email', 'invaild_email');
-define('text_invalid_name', 'invalid_name');
-//////////////////////////////////////////////////////
+
 define('constant_active','active');
 
