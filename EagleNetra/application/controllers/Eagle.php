@@ -81,22 +81,22 @@ class Eagle extends RestController{
         };
         $this->initializeEagleModel();
         $number = $this->input->post(param_phone_number);
-        if(!empty($number) && strlen($number) == 10 ){
-            $isregistered = $this->Eagle_model->registered($number);
-            if(!$isregistered){
-                $otp = strval($this->newotp());
-                $uid = 'USER_' . $this->new_uid();
-                $this->Eagle_model->addNumOtp($number, $otp, $uid);
-            }
-            $otp = $this->Eagle_model->getOtp($number);
-            $otp = $otp[0][key_otp];
-            $message = $isregistered ? $this->lang_message(text_user_already_exist) : $this->lang_message(text_new_user);
-            $response = [true , $message , $otp];
-            return $this->final_response($resp,$response);
-        }
-        $message =  $this->lang_message(text_mobile_number_must_be_ten_digit);    
-        $response = [true , $message , false];
-        return $this->final_response($resp,$response);     
+		if(!preg_match("/^[6-9]\d{9}$/", $number)){
+			$message =  $this->lang_message(text_invalid_pnone_number);    
+			$response = [true , $message , false];
+			return $this->final_response($resp,$response);
+		}
+		$isregistered = $this->Eagle_model->registered($number);
+		if(!$isregistered){
+			$otp = strval($this->newotp());
+			$uid = 'USER_' . $this->new_uid();
+			$this->Eagle_model->addNumOtp($number, $otp, $uid);
+		}
+		$otp = $this->Eagle_model->getOtp($number);
+		$otp = $otp[0][key_otp];
+		$message = $isregistered ? $this->lang_message(text_user_already_exist) : $this->lang_message(text_new_user);
+		$response = [true , $message , $otp];
+		return $this->final_response($resp,$response);     
     }
 
     private function vaidateOtp(){
@@ -110,7 +110,11 @@ class Eagle extends RestController{
         };
         $number = $this->input->get(query_param_phone_number);
         $otp = $this->input->get(query_param_otp);
-
+		if(!preg_match("/^[6-9]\d{9}$/", $number)){
+			$message =  $this->lang_message(text_invalid_pnone_number);    
+			$response = [true , $message , false];
+			return $this->final_response($resp,$response);
+		}
         $this->initializeEagleModel();
 
         $result = $this->Eagle_model->validateOtp($number,$otp);
@@ -140,7 +144,7 @@ class Eagle extends RestController{
             
         }else{
             $message = $this->lang_message(text_image_upload_failed);
-            $response = [false, $message];
+            $response = [true, $message, false];
             return $this->final_response($resp,$response);
         }       
         
@@ -148,7 +152,16 @@ class Eagle extends RestController{
         $email = $this->input->post(param_user_email);
         $trackingFor = $this->input->post(param_tarcking_for);
         $base_img =  $img;
-
+		if(!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)){
+			$message = $this->lang_message(text_invalid_email);
+            $response = [true, $message, false];
+            return $this->final_response($resp,$response);
+		}
+		if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $name)){
+			$message = $this->lang_message(text_invalid_name);
+            $response = [true ,$message,  false ];
+            return $this->final_response($resp,$response);   
+		}
         if(!empty($name) && !empty($email) && !empty($trackingFor)){
             $setData = $this->Eagle_model->completeRegistration($name, $email, $trackingFor,$id, $base_img);
             $message = $setData ? $this->lang_message(text_registration_successfull) : $this->lang_message(text_registration_failed);
@@ -187,7 +200,21 @@ class Eagle extends RestController{
         $number1 = $this->input->post(param_number1);
         $number2 = $this->input->post(param_number2);
         $number3 = $this->input->post(param_number1);
-
+		if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $name)){
+			$message = $this->lang_message(text_invalid_name);
+            $response = [true ,$message,  false ];
+            return $this->final_response($resp,$response);   
+		}
+		if(!preg_match("/^[6-9]\d{9}$/", $number1) || !preg_match("/^[6-9]\d{9}$/", $number1) || !preg_match("/^[6-9]\d{9}$/", $number1)){
+			$message =  $this->lang_message(text_invalid_pnone_number);    
+			$response = [true , $message , false];
+			return $this->final_response($resp,$response);
+		}
+		if(!preg_match("/^[6-9]\d{9}$/",$cardNumber)){
+			$message =  $this->lang_message(text_invalid_card_number);    
+			$response = [true , $message , false];
+			return $this->final_response($resp,$response);
+		}
         if(!empty($name) && 
            !empty($cardNumber) && 
            !empty($deviceId) && 
@@ -254,11 +281,32 @@ class Eagle extends RestController{
             $safeAreaRadius = $this->input->post(param_safe_area_radius);
             $alertOnExit = $this->input->post(param_alert_on_exit);
             $alertOnEntry = $this->input->post(param_alert_on_entry);
-            if( !empty($safeAreaName) &&
-                !empty($longitude) &&
-                !empty($latitude) &&
-                !empty($safeAreaRadius) &&
-                !empty($address)){
+			if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $safeAreaName)){
+				$message = $this->lang_message(text_invalid_name);
+				$response = [true ,$message,  false ];
+				return $this->final_response($resp,$response);   
+			}
+			if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $address)){
+				$message = $this->lang_message(text_invalid_address);
+				$response = [true ,$message,  false ];
+				return $this->final_response($resp,$response);   
+			}
+			if(!preg_match('/^-?[0-9999.]{0,999}(?:\.[0-9999]{1,9999})?$/', $latitude) || 
+				!preg_match('/^-?[0-9999.]{0,999}(?:\.[0-9999]{1,9999})?$/', $longitude)){
+				$message = $this->lang_message(text_invalid_coordinates);
+				$response = [true ,$message,  false ];
+				return $this->final_response($resp,$response);
+			}
+			if(!preg_match('/^[0-9]*$/',$safeAreaRadius)){
+				$message = $this->lang_message(text_invalid_safe_area_radius);
+				$response = [true ,$message,  false ];
+				return $this->final_response($resp,$response);
+			}
+			if(	!empty($safeAreaName) &&
+				!empty($longitude) &&
+				!empty($latitude) &&
+				!empty($safeAreaRadius) &&
+				!empty($address)){
                 $result = $this
                         ->Eagle_model
                         ->setSafeArea($address,$safeAreaName,$longitude,$latitude,$alertOnExit,$alertOnEntry,$safeAreaRadius,$user_id);
@@ -347,10 +395,23 @@ class Eagle extends RestController{
             return $data_final;
         };
         $this->initializeEagleModel();
+		$long = $this->input->post('long');
+		$lat = $this->input->post('lat');
+		if(empty($long) || empty($lat)){
+			$message = $this->lang_message(text_invalid_coordinates);
+			$response = [true ,$message,  false ];
+			return $this->final_response($resp,$response);
+		}
+		if(!preg_match('/^-?[0-9999.]{0,999}(?:\.[0-9999]{1,9999})?$/', $lat) || 
+			!preg_match('/^-?[0-9999.]{0,999}(?:\.[0-9999]{1,9999})?$/', $long)){
+			$message = $this->lang_message(text_invalid_coordinates);
+			$response = [true ,$message,  false ];
+			return $this->final_response($resp,$response);
+		}
+
         $smartCardExists = $this->Eagle_model->smartCardExists($smartCardId );
         if($smartCardExists){
-            $long = $this->input->post('long');
-            $lat = $this->input->post('lat');
+           
             $setData = $this->Eagle_model->setLocation($smartCardId,$long,$lat);
             $response = [true, $this->lang_message(text_loaction_inserted),true];
             return $this->final_response($resp,$response);
@@ -419,7 +480,21 @@ class Eagle extends RestController{
         $relationship = $this->input->post(param_relationship);
         $userExists =  $this->Eagle_model->userExists($user_id);
         $numberExists = $this->Eagle_model->numberExists($number);
-
+		if(!preg_match("/^[6-9]\d{9}$/", $number)){
+			$message =  $this->lang_message(text_invalid_pnone_number);    
+			$response = [true , $message , false];
+			return $this->final_response($resp,$response);
+		}
+		if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $relationship)){
+			$message = $this->lang_message(text_invalid_relationship);
+            $response = [true ,$message,  false ];
+            return $this->final_response($resp,$response);   
+		}
+		if(!preg_match('/^[A-Za-z]+([\ A-Za-z]+)*/', $name)){
+			$message = $this->lang_message(text_invalid_name);
+            $response = [true ,$message,  false ];
+            return $this->final_response($resp,$response);   
+		}
         if(!$userExists){
             $response = [true, $this->lang_message(text_user_not_exist),false];
             return $this->final_response($resp,$response);
@@ -450,7 +525,16 @@ class Eagle extends RestController{
         $this->initializeEagleModel(); 
         $price = $this->input->post(param_price);
         $validity = $this->input->post(param_validity);
-
+		if(!preg_match('/^[0-9]*$/',$price)){
+			$message = $this->lang_message(text_invalid_price);
+            $response = [true, $message, false];
+            return $this->final_response($resp,$response);
+		}
+		if(!preg_match('/^[0-9]*$/',$validity)){
+			$message = $this->lang_message(text_invalid_validity);
+            $response = [true, $message, false];
+            return $this->final_response($resp,$response);
+		}
         if(!empty($price) && !empty($validity)){
             $setData = $this->Eagle_model->addPackage($price, $validity);
             $message = $setData ? $this->lang_message(text_details_added) : $this->lang_message(text_details_not_added);
@@ -517,7 +601,7 @@ class Eagle extends RestController{
         $isSubscribed = $this->Eagle_model->isSubscribed($smartCardId);
 
         if($isSubscribed){
-            $response = [true, $this->lang_message(text_allready_subscribed),false];
+            $response = [true, $this->lang_message(text_allready_subscribed),true];
             return $this->final_response($resp,$response);
         }
         $setSubscription = $this->Eagle_model->setSubscription($smartCardId,$package_id);

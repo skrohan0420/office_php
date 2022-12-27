@@ -137,6 +137,7 @@ define('key_is_sent' , 'isSent');
 define('key_upload_path', 'upload_path');
 define('key_allowed_types', 'allowed_types');
 define('key_description', 'description');
+define('key_safe_area_status', 'safe_area_status');
 //////////////////////////////////////////////////////////
 define('text_base_url_found_successfully', 'base_url_found_successfully');
 define('text_record_found', 'record_found');
@@ -184,6 +185,10 @@ define('text_status_updated', 'status_updated');
 define('text_allready_subscribed', 'allready_subscribed');
 define('text_subscribed_successfully' , 'subscribed_successfully');
 define('text_cannot_subscribe' , 'cannot_subscribe');
+define('text_invalid_card_number' , 'invalid_card_number');
+define('text_invalid_relationship' , 'invalid_relationship');
+define('text_invalid_price' ,  'invalid_price');
+define('text_invalid_validity', 'invalid_validity');
 //////////////////////////////////////////////////////////
 define('http_ok', 200);
 define('http_no_content', 204);
@@ -209,7 +214,7 @@ define('param_tarcking_for', 'tracking_for');
 define('param_name' , 'name');
 define('param_relationship','relationship');
 define('param_card_number', 'card_number');
-define('param_device_id', ' device_id');
+define('param_device_id', 'device_id');
 define('param_class', 'class');
 define('param_age', 'age');
 define('param_number', 'number');
@@ -225,6 +230,9 @@ define('param_alert_on_exit','alert_on_exit');
 define('param_alert_on_entry', 'alert_on_entry');
 define('param_price', 'price');
 define('param_validity', 'validity');
+define('text_invalid_coordinates' , 'invalid_coordinates');
+define('text_invalid_safe_area_radius', 'invalid_safe_area_radius');
+define('text_invalid_address', 'invalid_address');      
 //////////////////////////////////////////////////////////
 define('file_profile_image', 'profile_image');
 //////////////////////////////////////////////////////////
@@ -254,6 +262,7 @@ define('key_data','data');
 define('key_isreset','isReset');
 define('key_subscribed', 'subscribed');
 define('key_subscription_status' ,'subscription_status');
+define('key_encrypt_name' , 'encrypt_name');
 ///////////////////////////////////////
 define('text_userid_required','user_id_required');
 define('text_username_required','username_required');
@@ -264,7 +273,11 @@ define('text_details_added' , 'details_added');
 define('text_details_not_added' , 'details_not_added');
 define('text_subscription_is_valid' , 'subscription_is_valid');
 define('text_subscription_expired' , 'subscription_expired');
-define('text_user_not_subscribed' ,'text_user_not_subscribed');
+define('text_user_not_subscribed' ,'user_not_subscribed');
+define('text_invalid_pnone_number' , 'invalid_pnone_number');
+define('text_image_upload_failed', 'image_upload_failed');
+define('text_invalid_email', 'invaild_email');
+define('text_invalid_name', 'invalid_name');
 //////////////////////////////////////////////////////
 define('constant_active','active');
 

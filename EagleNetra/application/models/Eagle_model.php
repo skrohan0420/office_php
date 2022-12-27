@@ -112,9 +112,9 @@ class Eagle_model extends CI_Model {
             'image' => $base_img
         );
 
-        $setData = $this->db->where('uid' , $id)->update(table_user, $userData);
+        $setData = $this->db->where('uid' , $id)->update(table_user, $userData); 
         
-        // return $setData;
+
         return $setData;
 
     }
@@ -283,7 +283,7 @@ class Eagle_model extends CI_Model {
             'safe_area_radius'=> $safeAreaRadius
         );
         $insert = $this->db->insert(table_safe_area, $safeAreaData);
-        return $insert;
+        return $safeAreaData;
     }
 
     public function getUserDetails($user_id){
