@@ -53,7 +53,7 @@ return array(
 	'sit'	=>	'application/x-stuffit',
 	'tar'	=>	'application/x-tar',
 	'tgz'	=>	array('application/x-tar', 'application/x-gzip-compressed'),
-	'z'		=>	'application/x-compress',
+	'z'	=>	'application/x-compress',
 	'xhtml'	=>	'application/xhtml+xml',
 	'xht'	=>	'application/xhtml+xml',
 	'zip'	=>	array('application/x-zip', 'application/zip', 'application/x-zip-compressed', 'application/s-compressed', 'multipart/x-zip'),
