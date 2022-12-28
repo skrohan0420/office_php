@@ -3,7 +3,7 @@
 class User_model extends CI_Model{
 
     public function login($userName,$password){
-        $this->db->where('userName',$userName);  
+        $this->db->where('user_name',$userName);  
         $this->db->where('password',$password);  
         $query = $this->db->get('user_data');  
         if ($query->num_rows() > 0){  
@@ -50,7 +50,6 @@ class User_model extends CI_Model{
             return false;
         }
     } 
-
 }
 
 
