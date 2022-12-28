@@ -89,16 +89,20 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 //////////////get method input///////////////
-define('query_param_user_name', 'user_name');
+define('query_param_name', 'user_name');
 define('query_param_password', 'password');
 
 
 //////////////post method input//////////////
-define('param_user_name', 'user_name');
 define('param_password', 'password');
+define('param_name', 'name');
+
+////////////////model names//////////////////
+define('model_admin', 'Admin_model');
 
 ////////////////table names//////////////////
 define('table_admin', 'admin');
+define('table_user', 'user');
 
 /////////////table colomn names//////////////
 define('feild_name','name');
