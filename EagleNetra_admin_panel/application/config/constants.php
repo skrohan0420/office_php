@@ -83,27 +83,3 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
-
-
-
-
-
-//////////////get method input///////////////
-define('query_param_name', 'user_name');
-define('query_param_password', 'password');
-
-
-//////////////post method input//////////////
-define('param_password', 'password');
-define('param_name', 'name');
-
-////////////////model names//////////////////
-define('model_admin', 'Admin_model');
-
-////////////////table names//////////////////
-define('table_admin', 'admin');
-define('table_user', 'user');
-
-/////////////table colomn names//////////////
-define('feild_name','name');
-define('feild_password','password');
