@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2022 at 02:12 PM
+-- Generation Time: Dec 29, 2022 at 08:03 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `eaglenetra`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `access`
+--
+
+CREATE TABLE `access` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `key` varchar(40) NOT NULL DEFAULT '',
+  `all_access` tinyint(1) NOT NULL DEFAULT 0,
+  `controller` varchar(50) NOT NULL DEFAULT '',
+  `date_created` datetime DEFAULT NULL,
+  `date_modified` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -71,6 +86,44 @@ INSERT INTO `emergency_numbers` (`id`, `uid`, `smart_card_id`, `emergency_contac
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `keys`
+--
+
+CREATE TABLE `keys` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `key` varchar(40) NOT NULL,
+  `level` int(2) NOT NULL,
+  `ignore_limits` tinyint(1) NOT NULL DEFAULT 0,
+  `is_private_key` tinyint(1) NOT NULL DEFAULT 0,
+  `ip_addresses` text DEFAULT NULL,
+  `date_created` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `keys`
+--
+
+INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
+(1, 1, '9363ff37-22ab-4e64-bef1-9cd9a13b1ba2', 0, 0, 0, NULL, 2018);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `limits`
+--
+
+CREATE TABLE `limits` (
+  `id` int(11) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `count` int(10) NOT NULL,
+  `hour_started` int(11) NOT NULL,
+  `api_key` varchar(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `location`
 --
 
@@ -95,6 +148,39 @@ INSERT INTO `location` (`id`, `uid`, `smart_card_id`, `tag`, `longitude`, `latit
 (3, 'LOCATION_0c54899796bf0fb0ea3da3fa8345b48c_1672137627', 'SMARTCARD_26b932f91f19b9bb5f82d9630b0febc2_1672137359', NULL, '55.560591017', '67.537112345', '2022-12-27 16:10:27', '2022-12-27 16:10:27'),
 (4, 'LOCATION_fe5ae5148c0db424a8cd81b979cb31cd_1672137646', 'SMARTCARD_26b932f91f19b9bb5f82d9630b0febc2_1672137359', NULL, '20.560591017', '30.537112345', '2022-12-27 16:10:46', '2022-12-27 16:10:46'),
 (5, 'LOCATION_5fd85f83e06d243c9cc23ec799f41a57_1672137651', 'SMARTCARD_26b932f91f19b9bb5f82d9630b0febc2_1672137359', NULL, '20.560591017', '30.537112345', '2022-12-27 16:10:51', '2022-12-27 16:10:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs`
+--
+
+CREATE TABLE `logs` (
+  `id` int(11) NOT NULL,
+  `uri` varchar(255) NOT NULL,
+  `method` varchar(6) NOT NULL,
+  `params` text DEFAULT NULL,
+  `api_key` varchar(40) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
+  `time` int(11) NOT NULL,
+  `rtime` float DEFAULT NULL,
+  `authorized` varchar(1) NOT NULL,
+  `response_code` smallint(3) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `uri`, `method`, `params`, `api_key`, `ip_address`, `time`, `rtime`, `authorized`, `response_code`) VALUES
+(1, 'eagle/splashScreen', 'get', 'a:6:{s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"249a4ba3-c4ee-4b03-8d5c-4fa7c179d067\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '', '::1', 1672293607, 0.0757849, '0', 403),
+(2, 'eagle/splashScreen', 'get', 'a:6:{s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"575795e1-a347-40d9-9629-3b5318caa540\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '', '::1', 1672293773, 0.0213008, '0', 403),
+(3, 'eagle/splashScreen', 'get', 'a:7:{s:9:\"x-api-key\";s:36:\"9363ff37-22ab-4e64-bef1-9cd9a13b1ba2\";s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"4f339626-572f-41f5-bca5-306ccf27e31a\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '', '::1', 1672293849, 0.0217459, '0', 403),
+(4, 'eagle/splashScreen', 'get', 'a:9:{s:9:\"x-api-key\";s:36:\"9363ff37-22ab-4e64-bef1-9cd9a13b1ba2\";s:8:\"platform\";s:7:\"android\";s:8:\"deviceid\";s:0:\"\";s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"68f268ae-461d-48cb-b4df-af82820ba091\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '9363ff37-22ab-4e64-bef1-9cd9a13b1ba2', '::1', 1672294169, 0.0505788, '1', 200),
+(5, 'eagle/splashScreen', 'get', 'a:8:{s:9:\"x-api-key\";s:36:\"9363ff37-22ab-4e64-bef1-9cd9a13b1ba2\";s:8:\"platform\";s:7:\"android\";s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"21464f8d-9bf3-4c99-b138-1164847ef93c\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '9363ff37-22ab-4e64-bef1-9cd9a13b1ba2', '::1', 1672294181, 0.0219929, '1', 200),
+(6, 'eagle/splashScreen', 'get', 'a:8:{s:9:\"x-api-key\";s:36:\"9363ff37-22ab-4e64-bef1-9cd9a13b1ba2\";s:8:\"platform\";s:7:\"android\";s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"c1b7f35a-f3ba-4575-8d65-9a88f44a996e\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '9363ff37-22ab-4e64-bef1-9cd9a13b1ba2', '::1', 1672294210, 0.0449181, '1', 200),
+(7, 'eagle/getSafeArea/USER_05060f79f3c5be9b24cc5a7fd4f8a504_1672137283', 'get', 'a:7:{s:48:\"USER_05060f79f3c5be9b24cc5a7fd4f8a504_1672137283\";N;s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"04cab18c-5ceb-4603-ba70-e5311d22cc46\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '', '::1', 1672295143, 0.022562, '0', 403),
+(8, 'eagle/splashScreen', 'get', 'a:8:{s:9:\"x-api-key\";s:36:\"9363ff37-22ab-4e64-bef1-9cd9a13b1ba2\";s:8:\"platform\";s:7:\"android\";s:10:\"User-Agent\";s:21:\"PostmanRuntime/7.30.0\";s:6:\"Accept\";s:3:\"*/*\";s:13:\"Postman-Token\";s:36:\"5fc0e5d9-3bc4-4cbe-a017-770e5000030f\";s:4:\"Host\";s:9:\"localhost\";s:15:\"Accept-Encoding\";s:17:\"gzip, deflate, br\";s:10:\"Connection\";s:10:\"keep-alive\";}', '9363ff37-22ab-4e64-bef1-9cd9a13b1ba2', '::1', 1672295613, 0.0249119, '1', 200);
 
 -- --------------------------------------------------------
 
@@ -314,6 +400,12 @@ INSERT INTO `user` (`id`, `uid`, `user_type`, `name`, `email`, `relationship`, `
 --
 
 --
+-- Indexes for table `access`
+--
+ALTER TABLE `access`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
@@ -326,9 +418,27 @@ ALTER TABLE `emergency_numbers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `keys`
+--
+ALTER TABLE `keys`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `limits`
+--
+ALTER TABLE `limits`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `location`
 --
 ALTER TABLE `location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -384,6 +494,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `access`
+--
+ALTER TABLE `access`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
@@ -396,10 +512,28 @@ ALTER TABLE `emergency_numbers`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `keys`
+--
+ALTER TABLE `keys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `limits`
+--
+ALTER TABLE `limits`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `otp`
