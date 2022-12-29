@@ -323,11 +323,10 @@ $config['rest_keys_table'] = 'keys';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_keys'] = false;
-
-
-// $config['rest_enable_platform'] = true
-// $config['rest_allowed_platforms'] = ['android', 'ios', 'web'];
+$config['rest_enable_keys'] = true;
+$config['rest_enable_platform'] = true;
+$config['rest_enable_deviceid'] = true;
+$config['rest_allowed_platforms'] = ['android', 'ios', 'web'];
 /*
 |--------------------------------------------------------------------------
 | REST Table Key Column Name
@@ -380,6 +379,7 @@ $config['rest_key_length'] = 40;
 |
 */
 $config['rest_key_name'] = 'X-API-KEY';
+$config['rest_platform_name'] = 'PLATFORM';
 
 /*
 |--------------------------------------------------------------------------
@@ -406,7 +406,7 @@ $config['rest_key_name'] = 'X-API-KEY';
 |   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 |
 */
-$config['rest_enable_logging'] = false;
+$config['rest_enable_logging'] = true;
 
 /*
 |--------------------------------------------------------------------------
