@@ -18,7 +18,20 @@
         }
 
         public function index(){
-            $this->load->view('login');
+            $this->load->view(view_login);
+        }
+
+        public function login(){
+            $email = $this->input->post(param_email);
+            $password = md5($this->input->post(param_password));
+            $this->initializeAdminModel();
+            $isAdmin = $this->Admin_model->isAdmin($email, $password);
+
+            if($isAdmin){
+                $this->load->view(view_dashboard);   
+            }else{
+                return false;
+            }
         }
 
 

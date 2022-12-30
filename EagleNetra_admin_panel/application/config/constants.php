@@ -87,6 +87,25 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 //model//////////////////////////////////////////////////////////
 define('model_admin',  'Admin_model');
+define('model_dashboard', 'dashboard');
 //helper/////////////////////////////////////////////////////////
 define('helper_url', 'url');
+
+
+//view///////////////////////////////////////////////////////////
+define('view_login', 'login');
+define('view_dashboard', 'dashboard');
+
+//table field////////////////////////////////////////////////////
+define('field_name', 'name');
+define('field_email', 'email');
+define('field_password', 'password');
+
+//table /////////////////////////////////////////////////////////
+define('table_admin', 'admin');
+
+
+//Post param/////////////////////////////////////////////////////
+define('param_email','email');
+define('param_password', 'password');
 ?>
