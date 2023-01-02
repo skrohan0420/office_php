@@ -88,24 +88,68 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //model//////////////////////////////////////////////////////////
 define('model_admin',  'Admin_model');
 define('model_dashboard', 'dashboard');
+
 //helper/////////////////////////////////////////////////////////
 define('helper_url', 'url');
-
 
 //view///////////////////////////////////////////////////////////
 define('view_login', 'login');
 define('view_dashboard', 'dashboard');
 
-//table field////////////////////////////////////////////////////
+//field//////////////////////////////////////////////////////////
 define('field_name', 'name');
 define('field_email', 'email');
 define('field_password', 'password');
+define('field_type','type');
+define('field_package_id', 'package_id');
+
+//key////////////////////////////////////////////////////////////
+define('key_wrong_user_name', 'wrong_user_name');
+define('key_price', 'price');
+
 
 //table /////////////////////////////////////////////////////////
 define('table_admin', 'admin');
+define('table_splash', 'splash_screen');
+define('table_otp', 'otp');
+define('table_user','user');
+define('table_smart_card','smart_card');
+define('table_safe_area', 'safe_area');
+define('table_last_user_location' , 'last_user_location');
+define('table_location', 'location');
+define('table_access_management', 'access_management');
+define('table_tracking_for' , 'tracking_for');
+define('table_emergency_numbers' , 'emergency_numbers');
+define('table_packages', 'packages');
+define('table_subscriptions', 'subscriptions');
 
+//css ///////////////////////////////////////////////////////////
+define('css_login','login_css');
+define('css_dashboard','dashboard_css');
+
+//js ////////////////////////////////////////////////////////////
+define('js_login','login_js');
+define('js_dashboard', 'dashboard_js');
 
 //Post param/////////////////////////////////////////////////////
 define('param_email','email');
 define('param_password', 'password');
+
+//headers_links footer_links/////////////////////////////////////
+define('load_header_link', 'inc/header_link');
+define('load_footer_link', 'inc/footer_link');
+define('load_header', 'inc/header');
+define('load_footer', 'inc/footer');
+define('load_side_bar', 'inc/side_bar');
+define('load_custom_js', 'inc/custom_js/');
+define('load_custom_style', 'inc/custom_style/');
+
+//sessions///////////////////////////////////////////////////////
+define('session_name' , 'name');
+define('session_email', 'email');
+define('session_type', 'type');
+
+//text //////////////////////////////////////////////////////////
+define('text_incorrect_username_or_password', 'Incorrect Username or Password');
+
 ?>

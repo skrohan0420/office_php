@@ -45,7 +45,7 @@
                 <label class="ui-checkbox ui-checkbox-info">
                     <input type="checkbox">
                     <span class="input-span"></span>Remember me</label>
-                <a href="forgot_password.html">Forgot password?</a>
+                <!-- <a href="forgot_password.html">Forgot password?</a> -->
             </div>
             <div class="form-group">
                 <button class="btn btn-info btn-block" type="submit">Login</button>
@@ -85,7 +85,7 @@
     <!-- PAGE LEVEL SCRIPTS-->
     <!-- <script type="text/javascript"> -->
 
-        $(document).ready(function(){
+        <!-- $(document).ready(function(){
             $(function() {
                 $('#login-form').validate({
                     errorClass: "help-block",
@@ -117,7 +117,7 @@
                 $('#close-eye').hide();
                 $('#open-eye').show();
             })
-        })
+        }) -->
 
     <!-- </script> -->
 <!-- </body> --> 
