@@ -12,7 +12,7 @@
     <script src="<?= base_url('./assets/vendors/jvectormap/jquery-jvectormap-world-mill-en.js')?>" type="text/javascript"></script>
     <script src="<?= base_url('./assets/vendors/jvectormap/jquery-jvectormap-us-aea-en.js')?>" type="text/javascript"></script>
     <script src="<?= base_url('./assets/js/app.min.js') ?>" type="text/javascript"></script>
-
+    <script src="<?= base_url('./assets/vendors/DataTables/datatables.min.js') ?>" type="text/javascript"></script>
     <!-- CORE SCRIPTS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="<?= base_url('./assets/js/scripts/dashboard_1_demo.js')?>" type="text/javascript"></script>
@@ -25,6 +25,6 @@
 
 
 
-
+   
 
 

@@ -7,7 +7,7 @@
                         <img src="<?= base_url('./assets/img/admin-avatar.png') ?>" width="45px" />
                     </div>
                     <div class="admin-info">
-                        <div class="font-strong">James Brown</div>
+                        <div class="font-strong"><?= $this->session->userdata(session_name)?></div>
                         <small>Administrator</small>
                     </div>
                 </div>
@@ -19,17 +19,17 @@
                     </li>
 
                     <li>
-                        <a href="kids-tracking-device.html"><i class="sidebar-item-icon fa fa-archive"></i>
+                        <a href="<?= base_url('admin/all_devices')?>"><i class="sidebar-item-icon fa fa-archive"></i>
                             <span class="nav-label"> Kids Tracking Device</span>
                         </a>
                     </li>
                     <li>
-                        <a href="users.html"><i class="sidebar-item-icon fa fa-users"></i>
+                        <a href="<?= base_url('admin/all_users')?>"><i class="sidebar-item-icon fa fa-users"></i>
                             <span class="nav-label">Users</span>
                         </a>
                     </li>
                     <li>
-                        <a href="subscriptions.html"><i class="sidebar-item-icon fa fa-user"></i>
+                        <a href="<?= base_url('admin/subscriptions')?>"><i class="sidebar-item-icon fa fa-user"></i>
                             <span class="nav-label">Subscriptions</span>
                         </a>
                     </li>

@@ -39,14 +39,14 @@ defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 | These modes are used when working with fopen()/popen()
 |
 */
-defined('FOPEN_READ')                           OR define('FOPEN_READ', 'rb');
 defined('FOPEN_READ_WRITE')                     OR define('FOPEN_READ_WRITE', 'r+b');
 defined('FOPEN_WRITE_CREATE_DESTRUCTIVE')       OR define('FOPEN_WRITE_CREATE_DESTRUCTIVE', 'wb'); // truncates existing file data, use with care
-defined('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE')  OR define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 'w+b'); // truncates existing file data, use with care
+defined('FOPEN_READ')                           OR define('FOPEN_READ', 'rb');
 defined('FOPEN_WRITE_CREATE')                   OR define('FOPEN_WRITE_CREATE', 'ab');
+defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
+defined('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE')  OR define('FOPEN_READ_WRITE_CREATE_DESTRUCTIVE', 'w+b'); // truncates existing file data, use with care
 defined('FOPEN_READ_WRITE_CREATE')              OR define('FOPEN_READ_WRITE_CREATE', 'a+b');
 defined('FOPEN_WRITE_CREATE_STRICT')            OR define('FOPEN_WRITE_CREATE_STRICT', 'xb');
-defined('FOPEN_READ_WRITE_CREATE_STRICT')       OR define('FOPEN_READ_WRITE_CREATE_STRICT', 'x+b');
 
 /*
 |--------------------------------------------------------------------------
@@ -92,20 +92,27 @@ define('model_dashboard', 'dashboard');
 //helper/////////////////////////////////////////////////////////
 define('helper_url', 'url');
 
-//view///////////////////////////////////////////////////////////
-define('view_login', 'login');
-define('view_dashboard', 'dashboard');
-
 //field//////////////////////////////////////////////////////////
 define('field_name', 'name');
 define('field_email', 'email');
 define('field_password', 'password');
 define('field_type','type');
 define('field_package_id', 'package_id');
+define('field_user_id', 'user_id');
+define('field_created_at', 'created_at');
+define('field_tracking_for', 'tracking_for');
+define('field_uid','uid');
+define('field_user', 'user');
 
 //key////////////////////////////////////////////////////////////
 define('key_wrong_user_name', 'wrong_user_name');
 define('key_price', 'price');
+define('key_total_devices', 'total_devices');
+define('key_tracking_for', 'tracking_for');
+define('key_tracking_for_id', 'tracking_for_id');
+define('key_email', 'email');
+define('key_id','id');
+define('key_created_at', 'created_at');
 
 
 //table /////////////////////////////////////////////////////////
@@ -126,10 +133,23 @@ define('table_subscriptions', 'subscriptions');
 //css ///////////////////////////////////////////////////////////
 define('css_login','login_css');
 define('css_dashboard','dashboard_css');
+define('css_all_devices', 'all_devices_css');
+define('css_all_users', 'all_users_css');
+define('css_subscriptions', 'subscriptions_css');
 
 //js ////////////////////////////////////////////////////////////
 define('js_login','login_js');
 define('js_dashboard', 'dashboard_js');
+define('js_all_devices', 'all_devices_js');
+define('js_all_users', 'all_users_js');
+define('js_subscriptions', 'subscriptions_js');
+
+//view///////////////////////////////////////////////////////////
+define('view_login', 'login');
+define('view_dashboard', 'dashboard');
+define('view_all_devices', 'all_devices');
+define('view_all_users', 'all_users');
+define('view_subscriptions','subscriptions');
 
 //Post param/////////////////////////////////////////////////////
 define('param_email','email');

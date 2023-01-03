@@ -16,8 +16,13 @@
     <!-- PAGE LEVEL STYLES-->
     <link href="<?= base_url('./assets/css/pages/auth-light.css')?>" rel="stylesheet" />
     <link href="<?= base_url('./assets/css/main.min.css') ?>" rel="stylesheet" />
-
+    <link href="<?= base_url('./assets/vendors/DataTables/datatables.min.css') ?>" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
+
+
+
+
+
 
 

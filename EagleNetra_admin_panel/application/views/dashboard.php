@@ -288,22 +288,22 @@
                                             <th>No. of Tracking Device</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
+                                    <tbody id="new_user_table_body">
+                                        <!-- <tr>
                                             <td>10</td>
                                             <td>Pritam Adhikary</td>
                                             <td>pritam@v-xplore.com</td>
                                             <td>9876543210</td>
                                             <td>Kid</td>
                                             <td>05</td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
+    
                 <!-- <style>
                     .visitors-table tbody tr td:last-child {
                         display: flex;

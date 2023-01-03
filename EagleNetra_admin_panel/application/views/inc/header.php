@@ -96,7 +96,7 @@
                     <li class="dropdown dropdown-user">
                         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
                             <img src="<?= base_url('./assets/img/admin-avatar.png') ?>" />
-                            <span></span>Admin<i class="fa fa-angle-down m-l-5"></i></a>
+                            <span></span><?= $this->session->userdata(session_name)?><i class="fa fa-angle-down m-l-5"></i></a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="profile.html"><i class="fa fa-user"></i>Profile</a>
                             <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>

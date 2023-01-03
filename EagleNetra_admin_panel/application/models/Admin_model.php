@@ -8,6 +8,13 @@ class Admin_model extends CI_Model {
         date_default_timezone_set('Asia/Kolkata');  
     }
 
+    public function print($data){
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        die();
+    } 
+
     public function isAdmin($email, $password){
 
         $isAdmin = $this->db
@@ -34,18 +41,12 @@ class Admin_model extends CI_Model {
         return $adminData[0];
     }
 
-
     public function total_income(){
         $total = $this->db
                         ->select('packages.price')
                         ->from('packages')
                         ->join('subscriptions', 'subscriptions.package_id = packages.uid')
                         ->get();
-
-                        // ->select('*');
-                        // ->from('articles');
-                        // ->join('category', 'category.id = articles.id');
-                        // ->join('comments', 'comments.id = articles.id');
 
         $total = $total->result_array();
         return $total;
@@ -71,7 +72,6 @@ class Admin_model extends CI_Model {
         return $total;                
     }
 
-    
     public function total_kids(){
         $total = $this->db
                         ->select('*')
@@ -81,10 +81,48 @@ class Admin_model extends CI_Model {
         $total = $total->num_rows();
         return $total;                
     }
+    
+    private function user_list($users){
+        foreach($users as $key => $val){
+            $id = $val[key_id];
+            $total_devices = $this->db
+                                    ->select('*')
+                                    ->where(field_user_id, $id)
+                                    ->get(table_smart_card);
+                                    
+            $total_devices = $total_devices->num_rows();                    
+            $users[$key][key_total_devices] =  $total_devices;
+            
+
+
+            $tracking_for_id = $val[key_tracking_for_id];
+            $tracking_for = $this->db
+                                    ->select(field_tracking_for)
+                                    ->where(field_uid, $tracking_for_id)
+                                    ->get(table_tracking_for);
+
+            $tracking_for = $tracking_for->result_array();
+            if(empty($users[$key][key_email])){
+                $users[$key][key_email] = '-';
+            }
+            if(!empty($tracking_for)){
+                $users[$key][key_tracking_for] = $tracking_for[0][key_tracking_for];             
+            }else{
+                $users[$key][key_tracking_for] = '-';
+            }
+            
+            unset($users[$key][key_id]);
+            unset($users[$key][key_created_at]);
+            unset($users[$key][key_tracking_for_id]);
+        }
+        // $this->print($users);
+        return $users;
+
+    }
 
     public function new_users(){
         $new_users = $this->db
-                            ->order_by('created_at', 'DESC')
+                            ->order_by(field_created_at, 'DESC')
                             ->select('name, email, phone_number, tracking_for_id, uid as id, created_at')
                             ->where("created_at >= DATE(NOW()) - INTERVAL 7 DAY")
                             ->from(table_user)
@@ -92,41 +130,71 @@ class Admin_model extends CI_Model {
 
         $new_users = $new_users->result_array();
 
-        foreach($new_users as $key => $val){
-            $id = $val['id'];
-            $total_devices = $this->db
-                                    ->select('*')
-                                    ->where('user_id', $id)
-                                    ->get(table_smart_card);
-                                    
-            $total_devices = $total_devices->num_rows();                    
-            $new_users[$key]['total_devices'] =  $total_devices;
-            
-
-
-            $tracking_for_id = $val['tracking_for_id'];
-            $tracking_for = $this->db
-                                    ->select('tracking_for')
-                                    ->where('uid', $tracking_for_id)
-                                    ->get(table_tracking_for);
-
-            $tracking_for = $tracking_for->result_array();
-            echo '<pre>';
-            print_r($tracking_for);
-            // $tracking_for = $tracking_for[0]['tracking_for'];
-
-            // $new_users[$key]['tracking_for'] = $tracking_for;
-
-
-
-        }
-
-       
-        echo '<pre>';
+        $new_users = $this->user_list($new_users);
+        
         return $new_users;
     }
 
+    public function all_devices(){
 
+        $owner_dtls = $this->db
+                            ->select('user.name, user.email')
+                            ->from(table_user)
+                            ->join(table_smart_card, 'smart_card.user_id = user.uid')
+                            ->get();
+        $owner_dtls = $owner_dtls->result_array();
+
+        $device_dtls = $this->db
+                            ->select('card_number, created_at, device_id')
+                            ->from(table_smart_card)
+                            ->get();
+        $device_dtls  = $device_dtls->result_array();
+           
+        
+        $details = [];
+        foreach($owner_dtls as $key => $val){
+            if(empty($owner_dtls[$key][key_email])){
+                $owner_dtls[$key][key_email] = '-';
+            }
+            $details[$key] = array_merge($owner_dtls[$key], $device_dtls[$key]);
+        }
+
+
+        return $details;
+    }
+
+    public function all_users(){
+        $all_users = $this->db
+                        ->select('name, email, phone_number, tracking_for_id, uid as id, created_at')
+                        ->from(table_user)
+                        ->get();
+        
+        $all_users = $all_users->result_array();
+
+        $all_users = $this->user_list($all_users);
+        // $this->print($all_users);
+        return $all_users;
+    }
+
+    public function subscriptions(){
+        $subscriptions = [];
+        $sub_dtls = $this->db
+                        ->select('package_id,smart_card_id,expiry_date,created_at,status')
+                        ->from('subscriptions')
+                        ->get();
+
+        $sub_dtls = $sub_dtls->result_array();
+        // foreach($sub_dtls as $key => $val){
+        //     $pkg_dtls = $this->db
+        //                     ->select('price')
+        //                     ->from('packages')
+        //                     ->where('')
+        //                     ->get()
+        // }
+        $this->print($sub_dtls);
+
+
+    }
 
 
 }

@@ -14,6 +14,11 @@
             // session_destroy(); 
             $this->load->helper(helper_url);     
         }
+        public function print($data){
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+        }
         public function index(){
             if($this->session->userdata(session_name)){
                 $this->dashboard();
@@ -118,11 +123,75 @@
         public function new_users(){
             $this->initializeAdminModel();
             $new_users = $this->Admin_model->new_users();
-
-            print_r($new_users);
-
-            die();
+            $new_users = json_encode($new_users);
+            echo $new_users;
         }
+
+        public function all_devices(){
+
+            if($this->session->userdata(session_name)){
+                $this->initializeAdminModel();
+                $all_devices['data'] = $this->Admin_model->all_devices();
+    
+                $this->load_header_link();
+                $this->load_custom_style(css_all_devices);
+                $this->load_header();
+                $this->load_side_bar();
+                $this->load->view(view_all_devices, $all_devices);
+                $this->load_footer();
+                $this->load_footer_link();
+                $this->load_custom_js(js_all_devices);
+            }else{
+               $this->index();
+            }   
+
+           
+
+        }
+
+        public function all_users(){
+
+            if($this->session->userdata(session_name)){
+                $this->initializeAdminModel();
+                $all_users['data'] = $this->Admin_model->all_users();
+
+                $this->load_header_link();
+                $this->load_custom_style(css_all_users);
+                $this->load_header();
+                $this->load_side_bar();
+                $this->load->view(view_all_users, $all_users);
+                $this->load_footer();
+                $this->load_footer_link();
+                $this->load_custom_js(js_all_users);
+            }else{
+                $this->index();
+            }
+
+        }
+
+        public function subscriptions(){
+            if($this->session->userdata(session_name)){
+                $this->initializeAdminModel();
+                $subs['data'] = $this->Admin_model->subscriptions();
+
+                $this->load_header_link();
+                $this->load_custom_style(css_subscriptions);
+                $this->load_header();
+                $this->load_side_bar();
+                $this->load->view(view_subscriptions, $subs);
+                $this->load_footer();
+                $this->load_footer_link();
+                $this->load_custom_js(js_subscriptions);
+            }else{
+                $this->index();
+            }
+        }
+
+
+
+
+
+
 
 
 
