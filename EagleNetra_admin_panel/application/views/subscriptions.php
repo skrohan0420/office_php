@@ -11,6 +11,7 @@
                         <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                             <thead class="tablred">
                                 <tr>
+                                    <th>#</th>
                                     <th>Device Id</th>
                                     <th>Owner Name </th>
                                     <th>Mobile Number</th>
@@ -23,16 +24,26 @@
 
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>01</td>
-                                    <td>Pritam Adhikary</td>
-                                    <td>9876543210</td>
-                                    <td>pritam@v-xplore.com</td>
-                                    <td>1st December 2022</td>
-                                    <td>31st December 2022</td>
-                                    <td>₹350</td>
-                                    <td class="text-success">Active</td>
-                                </tr>
+                                <?php if(!empty($data)){?>
+                                    <?php $i = 0;?>
+                                    <?php foreach($data as $key => $val){ $i++?>
+                                        <tr> 
+                                            <td><?=  $i?></td>
+                                            <td><?=  $data[$key]['device_id']?></td>
+                                            <td><?=  $data[$key]['name']?></td>
+                                            <td><?=  $data[$key]['phone_number']?></td>
+                                            <td>
+                                                <?= empty($data[$key]['email']) ? '-':  $data[$key]['email']?>
+                                            </td>
+                                            <td><?=  date('d/m/Y', strtotime($data[$key]['created_at'])) ?></td>
+                                            <td><?=  date('d/m/Y', strtotime($data[$key]['expiry_date']))?></td>
+                                            <td><?=  '₹ ' .  $data[$key]['price'] ?></td>
+                                            <td class="<?=  $data[$key]['status'] == 'active' ? 'text-success':'text-danger' ?>">
+                                                <?=  $data[$key]['status']?>
+                                            </td>
+                                        </tr>
+                                    <?php }?>
+                                <?php }?>
                             </tbody>
                         </table>
                     </div>

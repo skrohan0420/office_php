@@ -12,7 +12,6 @@ class Admin_model extends CI_Model {
         echo '<pre>';
         print_r($data);
         echo '</pre>';
-        die();
     } 
 
     public function isAdmin($email, $password){
@@ -177,25 +176,100 @@ class Admin_model extends CI_Model {
     }
 
     public function subscriptions(){
-        $subscriptions = [];
-        $sub_dtls = $this->db
-                        ->select('package_id,smart_card_id,expiry_date,created_at,status')
-                        ->from('subscriptions')
+        $pkg_price = $this->db
+                        ->select(field_price)
+                        ->from(table_packages)
+                        ->join(table_subscriptions, 'subscriptions.package_id = packages.uid')
                         ->get();
+        $device_id = $this->db
+                        ->select(field_device_id)
+                        ->from(table_smart_card)
+                        ->join(table_subscriptions, 'subscriptions.smart_card_id = smart_card.uid')
+                        ->get();
+        $device_id = $device_id->result_array();    
+        $pkg_price = $pkg_price->result_array();
+        foreach($device_id as $key => $val){
+            $q = $this->db
+                    ->select(field_user_id)
+                    ->from(table_smart_card)
+                    ->where(field_device_id,$device_id[$key][key_device_id])
+                    ->get();
+            $q = $q->result_array();  
+            $user_id[] = $q[0][key_user_id]; 
+        }
+        if(!empty($user_id)){
+            foreach($user_id as $key => $val){
+                $q = $this->db
+                            ->select('name, phone_number, email')
+                            ->where('uid',$user_id[$key])
+                            ->from('user')
+                            ->get();
+                $q = $q->result_array();
+                $user_dtls[] = $q[0];
+            }
+            $sub_dtls = $this->db
+                            ->select('created_at , expiry_date , status')
+                            ->from('subscriptions')
+                            ->get();
+            $sub_dtls = $sub_dtls->result_array();
+            foreach($sub_dtls as $key => $val){
+                $sub_dtls[$key]['name'] = $user_dtls[$key]['name'];
+                $sub_dtls[$key]['phone_number'] = $user_dtls[$key]['phone_number'];
+                $sub_dtls[$key]['email'] = $user_dtls[$key]['email'];
+                $sub_dtls[$key]['price'] = $pkg_price[$key]['price'];
+                $sub_dtls[$key]['device_id'] = $device_id[$key]['device_id'];
+            }
+            return $sub_dtls;
+        }
+        return false;
+        
+        // $this->print($sub_dtls);
+        // $this->print($user_dtls);
+        // $this->print($user_id);
+        // $this->print($pkg_price);
+        // $this->print($device_id);
+       
+    }  
 
-        $sub_dtls = $sub_dtls->result_array();
-        // foreach($sub_dtls as $key => $val){
-        //     $pkg_dtls = $this->db
-        //                     ->select('price')
-        //                     ->from('packages')
-        //                     ->where('')
-        //                     ->get()
-        // }
-        $this->print($sub_dtls);
+    public function all_kids(){
+        $kids_dtls = $this->db
+                            ->select('
+                                smart_card.uid,
+                                smart_card.device_id,
+                                smart_card.name as kid,
+                                smart_card.card_number,
+                                smart_card.class,
+                                smart_card.age,
+                                smart_card.profile_image,
+                                user.name as parent
+                            ')
+                            ->from('smart_card')
+                            ->join('user', 'smart_card.user_id = user.uid')
+                            ->get();
+        $kids_dtls = $kids_dtls->result_array();
 
 
+        foreach($kids_dtls as $key=>$val){
+            $em_nums = $this->db
+                            ->select('emergency_contact')
+                            ->from('emergency_numbers')
+                            ->where('smart_card_id',$val['uid'])
+                            ->get();
+            $em_nums = $em_nums->result_array();
+
+
+           
+            foreach($em_nums as $keys => $vals){
+                $kids_dtls[$keys]['emergency_contact']  = $em_nums;
+            }
+            
+            
+        }
+
+        // $this->print($kids_dtls);
+        // die();
+        return $kids_dtls;
     }
-
 
 }
 ?>

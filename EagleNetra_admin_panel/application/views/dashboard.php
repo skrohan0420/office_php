@@ -273,7 +273,7 @@
                         <div class="ibox">
                             <div class="ibox-head d-flex align-item-center justify-content-between">
                                 <div class="ibox-title">New Users</div>
-                                <a href="users.html">View All</a>
+                                <a href="<?= base_url('admin/all_users')?>">View All</a>
                             </div>
 
                             <div class="ibox-body">

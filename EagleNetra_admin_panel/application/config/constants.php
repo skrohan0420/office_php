@@ -103,6 +103,8 @@ define('field_created_at', 'created_at');
 define('field_tracking_for', 'tracking_for');
 define('field_uid','uid');
 define('field_user', 'user');
+define('field_price', 'price');
+define('field_device_id', 'device_id');
 
 //key////////////////////////////////////////////////////////////
 define('key_wrong_user_name', 'wrong_user_name');
@@ -113,6 +115,8 @@ define('key_tracking_for_id', 'tracking_for_id');
 define('key_email', 'email');
 define('key_id','id');
 define('key_created_at', 'created_at');
+define('key_device_id', 'device_id');
+define('key_user_id', 'user_id');
 
 
 //table /////////////////////////////////////////////////////////
@@ -136,6 +140,7 @@ define('css_dashboard','dashboard_css');
 define('css_all_devices', 'all_devices_css');
 define('css_all_users', 'all_users_css');
 define('css_subscriptions', 'subscriptions_css');
+define('css_all_kids', 'all_kids_css');
 
 //js ////////////////////////////////////////////////////////////
 define('js_login','login_js');
@@ -143,6 +148,7 @@ define('js_dashboard', 'dashboard_js');
 define('js_all_devices', 'all_devices_js');
 define('js_all_users', 'all_users_js');
 define('js_subscriptions', 'subscriptions_js');
+define('js_all_kids', 'all_kids_js');
 
 //view///////////////////////////////////////////////////////////
 define('view_login', 'login');
@@ -150,6 +156,7 @@ define('view_dashboard', 'dashboard');
 define('view_all_devices', 'all_devices');
 define('view_all_users', 'all_users');
 define('view_subscriptions','subscriptions');
+define('view_all_kids','all_kids');
 
 //Post param/////////////////////////////////////////////////////
 define('param_email','email');
@@ -172,4 +179,7 @@ define('session_type', 'type');
 //text //////////////////////////////////////////////////////////
 define('text_incorrect_username_or_password', 'Incorrect Username or Password');
 
+
+//base url///////////////////////////////////////////////////////
+define('base_url_api', 'http://localhost/EagleNetra_api_local/');
 ?>

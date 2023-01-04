@@ -46,8 +46,8 @@
         public function load_header(){
             $this->load->view(load_header);
         }
-        public function load_side_bar(){
-            $this->load->view(load_side_bar);
+        public function load_side_bar($active){
+            $this->load->view(load_side_bar,$active);
         }
         public function load_footer(){
             $this->load->view(load_footer);                                      
@@ -74,19 +74,20 @@
 
             foreach($total as $key => $val){
                 $total_income += $val[key_price] ;
-            }
+            }    
             $data = [
                 'total_income' => $total_income,
                 'total_user'  => $total_user,
                 'total_subscriptions' => $total_subscriptions,
-                'total_kids' => $total_kids
+                'total_kids' => $total_kids,
             ];
+            $active['side_bar'] = 'dashboard';
 
             if($this->session->userdata(session_name)){
                 $this->load_header_link();
                 $this->load_custom_style(css_dashboard);
                 $this->load_header();
-                $this->load_side_bar();
+                $this->load_side_bar($active);
                 $this->load->view(view_dashboard, $data);
                 $this->load_footer();
                 $this->load_footer_link();
@@ -132,11 +133,12 @@
             if($this->session->userdata(session_name)){
                 $this->initializeAdminModel();
                 $all_devices['data'] = $this->Admin_model->all_devices();
-    
+                $active['side_bar'] = 'all_devices';
+
                 $this->load_header_link();
                 $this->load_custom_style(css_all_devices);
                 $this->load_header();
-                $this->load_side_bar();
+                $this->load_side_bar($active);
                 $this->load->view(view_all_devices, $all_devices);
                 $this->load_footer();
                 $this->load_footer_link();
@@ -154,11 +156,12 @@
             if($this->session->userdata(session_name)){
                 $this->initializeAdminModel();
                 $all_users['data'] = $this->Admin_model->all_users();
+                $active['side_bar'] = 'all_users';
 
                 $this->load_header_link();
                 $this->load_custom_style(css_all_users);
                 $this->load_header();
-                $this->load_side_bar();
+                $this->load_side_bar($active);
                 $this->load->view(view_all_users, $all_users);
                 $this->load_footer();
                 $this->load_footer_link();
@@ -173,11 +176,12 @@
             if($this->session->userdata(session_name)){
                 $this->initializeAdminModel();
                 $subs['data'] = $this->Admin_model->subscriptions();
+                $active['side_bar'] = 'subscriptions';
 
                 $this->load_header_link();
                 $this->load_custom_style(css_subscriptions);
                 $this->load_header();
-                $this->load_side_bar();
+                $this->load_side_bar($active);
                 $this->load->view(view_subscriptions, $subs);
                 $this->load_footer();
                 $this->load_footer_link();
@@ -187,7 +191,24 @@
             }
         }
 
+        public function all_kids(){
+            if($this->session->userdata(session_name)){
+                $this->initializeAdminModel();
+                $all_kids['data'] = $this->Admin_model->all_kids();
+                $active['side_bar'] = 'all_kids';
 
+                $this->load_header_link();
+                $this->load_custom_style(css_all_kids);
+                $this->load_header();
+                $this->load_side_bar($active);
+                $this->load->view(view_all_kids,$all_kids);
+                $this->load_footer();
+                $this->load_footer_link();
+                $this->load_custom_js(js_all_kids);
+            }else{
+                $this->index();
+            }
+        }
 
 
 
